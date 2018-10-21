@@ -1,0 +1,68 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Resources/Delta-Key-CEGB.ogg" type="AudioStream" id=1]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends AudioStreamPlayer
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+
+func _ready():
+	self.volume_db=-100
+	$music2_lp.volume_db=-100
+	$twn.interpolate_property(self, 'volume_db', self.volume_db, 0, 1.0, Tween.TRANS_QUART, Tween.EASE_IN)
+	$twn_lp.interpolate_property($music2_lp, 'volume_db', $music2_lp.volume_db, 0, 1.0, Tween.TRANS_QUART, Tween.EASE_IN)
+	$twn.start()
+	$twn_lp.start()
+	
+func fade():
+	$twn.interpolate_property(self, 'volume_db', self.volume_db, -100, 1.0, Tween.TRANS_QUART, Tween.EASE_IN)
+	$twn_lp.interpolate_property($music2_lp, 'volume_db', $music2_lp.volume_db, -100, 1.0, Tween.TRANS_QUART, Tween.EASE_IN)
+	$twn.start()
+	$twn_lp.start()
+
+func _on_twn_tween_completed(object, key):
+	if self.volume_db<-10: self.queue_free()
+"
+
+[node name="music2" type="AudioStreamPlayer"]
+
+stream = ExtResource( 1 )
+volume_db = 0.0
+autoplay = true
+mix_target = 0
+bus = "bgm"
+script = SubResource( 1 )
+
+[node name="music2_lp" type="AudioStreamPlayer" parent="." index="0"]
+
+stream = ExtResource( 1 )
+volume_db = 0.0
+autoplay = true
+mix_target = 0
+bus = "bgm_lp"
+
+[node name="twn" type="Tween" parent="." index="1"]
+
+repeat = false
+playback_process_mode = 1
+playback_speed = 1.0
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
+
+[node name="twn_lp" type="Tween" parent="." index="2"]
+
+repeat = false
+playback_process_mode = 1
+playback_speed = 1.0
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
+
+[connection signal="tween_completed" from="twn" to="." method="_on_twn_tween_completed"]
+
+

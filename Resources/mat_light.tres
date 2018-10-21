@@ -1,0 +1,8 @@
+[gd_resource type="CanvasItemMaterial" format=2]
+
+[resource]
+
+render_priority = 0
+blend_mode = 0
+light_mode = 2
+

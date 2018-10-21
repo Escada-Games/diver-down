@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+
+resource_name = "spritetrail"
+script/source = "extends Sprite
+var fade_increment = 0.03
+func _ready():
+	set_process(true)
+	self.set_modulate( get_modulate() - Color(0,0,0,0.2))
+
+func _process(delta):
+	var color = self.get_modulate()
+	if color.a <= 0:
+		self.queue_free()
+	else:
+		color.a -= fade_increment
+		set_modulate(color)
+
+"
+_sections_unfolded = [ "Resource" ]
+
+[node name="spritetrail" type="Sprite"]
+
+z_index = 5
+script = SubResource( 1 )
+_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
+
+

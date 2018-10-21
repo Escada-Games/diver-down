@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+
+resource_name = "twn_stagefadeout"
+script/source = "extends Tween
+
+func _ready():
+	print('Fadeout tween: Starting alpha tween...')
+	get_parent().modulate.a=1
+	self.interpolate_property(get_parent(), 'modulate:a', 1, 0, 0.5, Tween.TRANS_QUART, Tween.EASE_IN)
+	self.start()
+	yield(self, \"tween_completed\")
+	print('Fadeout tween: Alpha tween finished. Deleting self, bai!')
+	self.queue_free()"
+_sections_unfolded = [ "Resource" ]
+
+[node name="twn_stagefadeout" type="Tween"]
+
+repeat = false
+playback_process_mode = 1
+playback_speed = 1.0
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
+script = SubResource( 1 )
+
+

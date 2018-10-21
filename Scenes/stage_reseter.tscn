@@ -1,0 +1,63 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+
+resource_name = "stage_reseter"
+script/source = "extends Node2D
+var blinks=0
+func _ready():
+	print('Stage reseter: Player caught. Blinking the stage...')
+	get_tree().paused=true
+#	$tween.interpolate_property($canvas_modulate, 'color', $canvas_modulate.color, Color(0,0,0), 0.4, Tween.TRANS_QUART, Tween.EASE_IN, 0.1)
+#	$tween.start()
+#	yield(get_tree().create_timer(0.5), \"timeout\")
+#	get_tree().reload_current_scene()
+#	get_tree().paused=false
+
+func _on_tween_tween_completed(object, key):
+	yield(get_tree().create_timer(0.2), \"timeout\")
+	get_tree().reload_current_scene()
+	get_tree().paused=false
+
+
+func _on_timer_timeout():
+	get_tree().current_scene.modulate.a=0 if get_tree().current_scene.modulate.a==1 else 1
+	blinks+=1
+	if blinks>5:
+		get_tree().reload_current_scene()
+		get_tree().paused=false
+		print('Stage reseter: Stage reseted. Deleting self, bai!')
+		self.queue_free()"
+_sections_unfolded = [ "Resource" ]
+
+[node name="stage_reseter" type="Node2D"]
+
+pause_mode = 2
+script = SubResource( 1 )
+_sections_unfolded = [ "Pause" ]
+
+[node name="tween" type="Tween" parent="." index="0"]
+
+repeat = false
+playback_process_mode = 1
+playback_speed = 1.0
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
+
+[node name="canvas_modulate" type="CanvasModulate" parent="." index="1"]
+
+color = Color( 1, 0.662745, 0.662745, 0.396078 )
+
+[node name="timer" type="Timer" parent="." index="2"]
+
+process_mode = 1
+wait_time = 0.1
+one_shot = false
+autostart = true
+
+[connection signal="tween_completed" from="tween" to="." method="_on_tween_tween_completed"]
+
+[connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]
+
+

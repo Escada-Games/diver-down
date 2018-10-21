@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends Node2D
+func _ready(): set_process(true)
+func _process(delta):
+	if Input.is_action_just_pressed('ui_pause'):
+		get_tree().paused = not get_tree().paused
+		self.visible = not self.visible"
+
+[node name="pause_manager" type="Node2D"]
+
+pause_mode = 2
+visible = false
+script = SubResource( 1 )
+_sections_unfolded = [ "Pause" ]
+
+[node name="canvas_modulate" type="CanvasModulate" parent="." index="0"]
+
+color = Color( 0.4375, 0.4375, 0.4375, 1 )
+
+

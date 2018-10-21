@@ -1,0 +1,68 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Resources/Fonts/protracker.ttf" type="DynamicFontData" id=1]
+
+[sub_resource type="DynamicFont" id=1]
+
+size = 8
+use_mipmaps = false
+use_filter = false
+font_data = ExtResource( 1 )
+_sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
+
+[sub_resource type="GDScript" id=2]
+
+script/source = "extends Label
+export (float) var extra_delay=0
+func _ready():
+	self.modulate.a=0
+	$twn_fade.interpolate_property(self, 'modulate:a', 0, 1, 1.5, Tween.TRANS_QUART, Tween.EASE_IN, 0.5+extra_delay)
+	$twn_fade.start()
+	$twn_goup.interpolate_property(self, 'rect_global_position:y', self.rect_global_position.y, self.rect_global_position.y-16, 2.0, Tween.TRANS_QUART, Tween.EASE_IN_OUT, 0.5+extra_delay)
+	$twn_goup.start()"
+
+[node name="str_stagename" type="Label"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_top = 216.0
+margin_right = 218.0
+margin_bottom = 236.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color_shadow = Color( 0.33, 0.33, 0.33, 1 )
+text = "Stage 1: First steps"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+script = SubResource( 2 )
+_sections_unfolded = [ "Rect", "custom_colors", "custom_constants", "custom_fonts" ]
+extra_delay = 0
+
+[node name="twn_fade" type="Tween" parent="." index="0"]
+
+repeat = false
+playback_process_mode = 1
+playback_speed = 1.0
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
+
+[node name="twn_goup" type="Tween" parent="." index="1"]
+
+repeat = false
+playback_process_mode = 1
+playback_speed = 1.0
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
+
+

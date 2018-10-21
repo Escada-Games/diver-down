@@ -1,0 +1,71 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scenes/spotlight.tscn" type="PackedScene" id=1]
+
+[sub_resource type="GDScript" id=7]
+
+script/source = "extends Path2D
+export (bool) var loop=false
+export (float) var duration=1.0
+var target_offset=1
+onready var spotlight_on_rails=$path_follow_2d
+func _ready():
+	spotlight_on_rails.loop=self.loop
+	$twn_offset.interpolate_property(spotlight_on_rails, 'unit_offset', spotlight_on_rails.unit_offset, self.target_offset, self.duration, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
+	$twn_offset.start()
+
+func _on_twn_offset_tween_completed(object, key):
+	self.target_offset=0 if spotlight_on_rails.unit_offset>0.9 else 1
+	_ready()"
+_sections_unfolded = [ "Resource" ]
+
+[sub_resource type="GDScript" id=8]
+
+script/source = "extends Node2D
+
+func _ready():
+	$area_2d/collision_polygon_2d.polygon=self.polygon
+	set_process(true)
+
+func _process(delta):
+	self.modulate.r=1
+	for body in $area_2d.get_overlapping_bodies():
+		if body.is_in_group('Player'):
+			get_tree().reload_current_scene() #@Make a better gameover
+			self.modulate.r=30"
+
+[node name="spotlight_on_rails" type="Path2D"]
+
+curve = null
+script = SubResource( 7 )
+_sections_unfolded = [ "Transform" ]
+loop = false
+duration = 1.0
+
+[node name="twn_offset" type="Tween" parent="." index="0"]
+
+repeat = false
+playback_process_mode = 1
+playback_speed = 1.0
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
+
+[node name="path_follow_2d" type="PathFollow2D" parent="." index="1"]
+
+offset = 0.0
+h_offset = 0.0
+v_offset = 0.0
+rotate = false
+cubic_interp = true
+loop = false
+lookahead = 4.0
+_sections_unfolded = [ "Transform", "Z Index" ]
+
+[node name="spotlight" parent="path_follow_2d" index="0" instance=ExtResource( 1 )]
+
+script = SubResource( 8 )
+
+[connection signal="tween_completed" from="twn_offset" to="." method="_on_twn_offset_tween_completed"]
+
+

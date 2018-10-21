@@ -1,0 +1,72 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Resources/MoreTextures/door.png" type="Texture" id=1]
+[ext_resource path="res://Resources/SFX/50561__broumbroum__sf3-sfx-menu-select.wav" type="AudioStream" id=2]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends Area2D
+onready var current_level=get_tree().current_scene.get_node('stage')
+export (PackedScene) var next_level=load(\"res://Scenes/debug.tscn\")
+func _ready(): pass
+func _on_next_level_body_entered(body):
+	if(body.is_in_group('Player')):
+		$snd_done.play()
+		global.change_stage(next_level)
+#		body.active=false
+		body.anim='idle'
+		body.get_node('animation_player').play('idle')
+		body.get_node('twn_fadeout').interpolate_property(body, 'modulate:a', body.modulate.a, 0, 0.4, Tween.TRANS_QUART, Tween.EASE_IN)
+#		var i=next_level.instance()
+#		i.rect_global_position=Vector2()
+		
+##		get_tree().change_scene_to(next_level)
+##		get_tree().current_scene.get_node('stage').queue_free()
+#
+#		var i=next_level.instance()
+#		i.rect_global_position=Vector2()
+#
+##		get_tree().current_scene.add_child(i)
+#
+#		get_tree().current_scene.add_child_below_node(get_tree().current_scene.get_node('pause_manager'),i)
+#		get_parent().go_out()"
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 9, 10 )
+
+[node name="next_level" type="Area2D"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+script = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+next_level = null
+
+[node name="icon" type="Sprite" parent="." index="0"]
+
+position = Vector2( 0, -2 )
+texture = ExtResource( 1 )
+_sections_unfolded = [ "Material", "Transform" ]
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="." index="1"]
+
+shape = SubResource( 2 )
+
+[node name="snd_done" type="AudioStreamPlayer" parent="." index="2"]
+
+stream = ExtResource( 2 )
+volume_db = 0.0
+autoplay = false
+mix_target = 0
+bus = "sfx"
+
+[connection signal="body_entered" from="." to="." method="_on_next_level_body_entered"]
+
+

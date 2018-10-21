@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Resources/Textures/the_best_placeholder2.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends Area2D
+
+func _on_artifact_body_entered(body):
+	if body.is_in_group('Player'):
+		#@Play a sound
+		global.artifacts+=1
+		self.queue_free()
+"
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 8, 8 )
+
+[node name="artifact" type="Area2D" index="0"]
+
+position = Vector2( 280, 40 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+script = SubResource( 1 )
+
+[node name="sprite" type="Sprite" parent="." index="0"]
+
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="." index="1"]
+
+shape = SubResource( 2 )
+
+[connection signal="body_entered" from="." to="." method="_on_artifact_body_entered"]
+
+

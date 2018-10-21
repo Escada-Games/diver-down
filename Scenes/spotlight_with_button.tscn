@@ -1,0 +1,156 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scenes/spotlight.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Resources/MoreTextures/button.png" type="Texture" id=2]
+[ext_resource path="res://Resources/SFX/Laser_shoot 6.wav" type="AudioStream" id=3]
+
+[sub_resource type="GDScript" id=1]
+
+resource_name = "spotlight_with_button"
+script/source = "extends Node2D
+export (bool) var activated=true
+func _ready():
+	if not activated:
+		$spotlight.set_process(false)
+		$spotlight.self_modulate.a=0
+func _on_area_2d_body_entered(body):
+	if body.is_in_group('Player'):
+		$snd_press.play()
+		if $spotlight.is_processing():
+			$spotlight.set_process(false)
+			$spotlight/sprite.frame=1
+			$twn_spotlightfade.interpolate_property($spotlight, 'self_modulate:a', $spotlight.self_modulate.a, 0, 0.5, Tween.TRANS_QUART, Tween.EASE_IN)
+			$twn_spotlightfade.start()
+		else:
+			$spotlight.set_process(true)
+			$spotlight/sprite.frame=0
+			$twn_spotlightfade.interpolate_property($spotlight, 'self_modulate:a', $spotlight.self_modulate.a, 1, 0.4, Tween.TRANS_QUART, Tween.EASE_IN)
+			$twn_spotlightfade.start()"
+_sections_unfolded = [ "Resource" ]
+
+[sub_resource type="GDScript" id=2]
+
+resource_name = "spotlight_with_button_line2d"
+script/source = "tool
+extends Line2D
+
+func _ready():
+#	return
+	#self.points[0]=Vector2(0,0)
+	self.points[self.points.size()-1]=get_parent().get_node('button').position+get_parent().get_node('button/sprite').position"
+_sections_unfolded = [ "Resource" ]
+
+[sub_resource type="GDScript" id=3]
+
+script/source = "extends Node2D
+
+func _ready():
+	$area_2d/collision_polygon_2d.polygon=self.polygon
+	set_process(true)
+
+func _process(delta):
+	for body in $area_2d.get_overlapping_bodies():
+		if body.is_in_group('Player'):
+			global.reload_stage()"
+_sections_unfolded = [ "Resource" ]
+
+[sub_resource type="RectangleShape2D" id=4]
+
+custom_solver_bias = 0.0
+extents = Vector2( 8, 3 )
+
+[sub_resource type="RectangleShape2D" id=5]
+
+custom_solver_bias = 0.0
+extents = Vector2( 8, 3 )
+
+[node name="spotlight_with_button" type="Node2D"]
+
+position = Vector2( 8, 8 )
+script = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_horizontal_guides_": [ 61.0, 67.0 ],
+"_edit_vertical_guides_": [ 48.0, 64.0 ]
+}
+activated = true
+
+[node name="line_2d" type="Line2D" parent="." index="0"]
+
+points = PoolVector2Array( 0, 0, 48, 0, 48, 56 )
+width = 2.0
+default_color = Color( 0.40625, 0.40625, 0.40625, 1 )
+texture_mode = 593255583
+joint_mode = 1
+begin_cap_mode = 2
+end_cap_mode = 2
+sharp_limit = 2.0
+round_precision = 8
+script = SubResource( 2 )
+_sections_unfolded = [ "Capping" ]
+
+[node name="twn_spotlightfade" type="Tween" parent="." index="1"]
+
+repeat = false
+playback_process_mode = 1
+playback_speed = 1.0
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
+
+[node name="spotlight" parent="." index="2" instance=ExtResource( 1 )]
+
+color = Color( 0.807843, 0.678431, 0.45098, 0.6 )
+script = SubResource( 3 )
+
+[node name="button" type="Area2D" parent="." index="3"]
+
+position = Vector2( 48, 48 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Transform" ]
+
+[node name="sprite" type="Sprite" parent="button" index="0"]
+
+position = Vector2( 0, 8 )
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Offset", "Transform" ]
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="button" index="1"]
+
+position = Vector2( 0, 7 )
+shape = SubResource( 4 )
+
+[node name="static_body_2d" type="StaticBody2D" parent="button" index="2"]
+
+position = Vector2( 0, 9 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+_sections_unfolded = [ "Transform" ]
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="button/static_body_2d" index="0"]
+
+shape = SubResource( 5 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="snd_press" type="AudioStreamPlayer" parent="." index="4"]
+
+stream = ExtResource( 3 )
+volume_db = 0.0
+autoplay = false
+mix_target = 0
+bus = "sfx"
+
+[connection signal="body_entered" from="button" to="." method="_on_area_2d_body_entered"]
+
+

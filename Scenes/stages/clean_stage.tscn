@@ -1,0 +1,217 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://Scenes/bg_layer.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/twn_stagefadein.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Resources/tilemap.tres" type="TileSet" id=3]
+[ext_resource path="res://Resources/tilemap_stone.tres" type="TileSet" id=4]
+[ext_resource path="res://Scenes/str_tutorial.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/next_level.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Resources/mat_light.tres" type="Material" id=7]
+[ext_resource path="res://Resources/Textures/the_best_placeholder.jpg" type="Texture" id=8]
+[ext_resource path="res://Scenes/player_default/player.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Resources/map2.tres" type="TileSet" id=10]
+[ext_resource path="res://Scenes/spike.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/spotlight.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Scenes/str_stagename.tscn" type="PackedScene" id=13]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends TileMap
+#I don't really know how to use Godot's autotile the right away, so I'm using this code!
+var grid_size = Vector2(25,16)
+var North = 1; var West = 2; var East = 4; var South = 8
+var directions = [North, South, East, West]
+var dictionary_paths = {
+	North: Vector2(0, -1),
+	South: Vector2(0, +1),
+	East: Vector2(+1, 0),
+	West: Vector2(-1, 0)}
+
+func _ready():
+	print('Tilemap: Beginning autotile...')
+	for x in range(grid_size.x - 1):
+		for y in range(grid_size.y - 1):
+			if get_cell(x,y)!=-1:
+				var north_tile = 1 if get_cell(x,y-1) != -1 else 0
+				var west_tile = 1 if get_cell(x-1,y) != -1 else 0
+				var east_tile = 1 if get_cell(x+1,y) != -1 else 0
+				var south_tile = 1 if get_cell(x,y+1) != -1 else 0
+				var tile_index = 0 + North * north_tile + West * west_tile + East * east_tile + South * south_tile
+				if tile_index==15:
+					if(randf()<0.1): tile_index+=randi()%12
+				set_cell(x, y, tile_index)
+	print('Tilemap: Autotiling done!')"
+
+[sub_resource type="GDScript" id=2]
+
+resource_name = "tilemap_stone"
+script/source = "extends TileMap
+#I don't really know how to use Godot's autotile the right away, so I'm using this code!
+var grid_size = Vector2(25,16)
+var North = 1; var West = 2; var East = 4; var South = 8
+var directions = [North, South, East, West]
+var dictionary_paths = {
+	North: Vector2(0, -1),
+	South: Vector2(0, +1),
+	East: Vector2(+1, 0),
+	West: Vector2(-1, 0)}
+
+func _ready():
+	self.add_to_group('Unphaseable')
+	print('Tilemap: Beginning autotile...')
+	for x in range(grid_size.x - 1):
+		for y in range(grid_size.y - 1):
+			if get_cell(x,y)!=-1:
+				var north_tile = 1 if get_cell(x,y-1) != -1 else 0
+				var west_tile = 1 if get_cell(x-1,y) != -1 else 0
+				var east_tile = 1 if get_cell(x+1,y) != -1 else 0
+				var south_tile = 1 if get_cell(x,y+1) != -1 else 0
+				var tile_index = 0 + North * north_tile + West * west_tile + East * east_tile + South * south_tile
+				set_cell(x, y, tile_index)
+	print('Tilemap: Autotiling done!')"
+_sections_unfolded = [ "Resource" ]
+
+[sub_resource type="GDScript" id=3]
+
+script/source = "extends TileMap
+#I don't really know how to use Godot's autotile the right away, so I'm using this code!
+var grid_size = Vector2(25,16)
+var North = 1; var West = 2; var East = 4; var South = 8
+var directions = [North, South, East, West]
+var dictionary_paths = {
+	North: Vector2(0, -1),
+	South: Vector2(0, +1),
+	East: Vector2(+1, 0),
+	West: Vector2(-1, 0)}
+
+func _ready():
+	for x in range(grid_size.x - 1):
+		for y in range(grid_size.y - 1):
+			if get_cell(x,y)!=-1:
+				var north_tile = 1 if get_cell(x,y-1) != -1 else 0
+				var west_tile = 1 if get_cell(x-1,y) != -1 else 0
+				var east_tile = 1 if get_cell(x+1,y) != -1 else 0
+				var south_tile = 1 if get_cell(x,y+1) != -1 else 0
+				var tile_index = 0 + North * north_tile + West * west_tile + East * east_tile + South * south_tile
+				set_cell(x, y, tile_index)"
+
+[sub_resource type="GDScript" id=4]
+
+script/source = "extends Area2D
+func _on_spike_body_entered(body):
+	if(body.is_in_group('Player')):
+		print('Spike: Collision with player, reloading current stage.')
+		global.reload_stage()
+"
+
+[sub_resource type="PackedScene" id=5]
+
+_bundled = {
+"conn_count": 0,
+"conns": PoolIntArray(  ),
+"editable_instances": [  ],
+"names": PoolStringArray( "stage", "Control", "material", "anchor_left", "anchor_top", "anchor_right", "anchor_bottom", "margin_right", "margin_bottom", "rect_pivot_offset", "rect_clip_content", "mouse_filter", "mouse_default_cursor_shape", "size_flags_horizontal", "size_flags_vertical", "_sections_unfolded", "sprite", "Sprite", "use_parent_material", "position", "texture", "_sections_unfolded", "player", "use_parent_material", "position", "_sections_unfolded", "tile_map", "TileMap", "position", "mode", "tile_set", "cell_size", "cell_quadrant_size", "cell_custom_transform", "cell_half_offset", "cell_tile_origin", "cell_y_sort", "cell_clip_uv", "collision_use_kinematic", "collision_friction", "collision_bounce", "collision_layer", "collision_mask", "occluder_light_mask", "format", "tile_data", "script", "_sections_unfolded", "spike", "position", "script", "spike2", "position", "script", "spike3", "position", "script", "spike4", "position", "script", "spike5", "position", "script", "spike6", "position", "script", "spotlight", "position" ),
+"node_count": 11,
+"node_paths": [ NodePath("."), NodePath("."), NodePath("."), NodePath("."), NodePath("."), NodePath("."), NodePath("."), NodePath("."), NodePath("."), NodePath(".") ],
+"nodes": PoolIntArray( -1, -1, 1, 0, -1, 14, 2, 0, 3, 1, 4, 2, 5, 3, 6, 4, 7, 5, 8, 6, 9, 7, 10, 8, 11, 9, 12, 10, 13, 11, 14, 12, 15, 13, 0, 1073741824, 0, 17, 262160, -1, 4, 18, 14, 19, 15, 20, 16, 21, 17, 0, 1073741825, 0, 2147483647, 524310, 18, 3, 23, 19, 24, 20, 25, 21, 0, 1073741826, 0, 27, 786458, -1, 20, 28, 22, 29, 23, 30, 24, 31, 25, 32, 26, 33, 27, 34, 28, 35, 29, 36, 30, 37, 31, 38, 32, 39, 33, 40, 34, 41, 35, 42, 36, 43, 37, 44, 38, 45, 39, 46, 40, 47, 41, 0, 1073741827, 0, 2147483647, 1048624, 42, 2, 49, 43, 50, 44, 0, 1073741828, 0, 2147483647, 1310771, 45, 2, 52, 46, 53, 47, 0, 1073741829, 0, 2147483647, 1572918, 48, 2, 55, 49, 56, 50, 0, 1073741830, 0, 2147483647, 1835065, 51, 2, 58, 52, 59, 53, 0, 1073741831, 0, 2147483647, 2097212, 54, 2, 61, 55, 62, 56, 0, 1073741832, 0, 2147483647, 2359359, 57, 2, 64, 58, 65, 59, 0, 1073741833, 0, 2147483647, 2621506, 60, 1, 67, 61, 0 ),
+"variants": [ ExtResource( 7 ), 0.0, 0.0, 0.0, 0.0, 40.0, 40.0, Vector2( 0, 0 ), false, 0, 0, 1, 1, [ "Material" ], true, Vector2( 168, 120 ), ExtResource( 8 ), [ "Material" ], ExtResource( 9 ), true, Vector2( 40, 56 ), [ "Collision", "Material", "Transform", "Z Index" ], Vector2( 0, 1 ), 0, ExtResource( 10 ), Vector2( 16, 16 ), 16, Transform2D( 1, 0, 0, 1, 0, 0 ), 2, 0, false, false, false, 1.0, 0.0, 1, 1, 1, 1, PoolIntArray( -1, 0, 0, -65536, 0, 0, -65535, 0, 0, -65534, 0, 0, -65533, 0, 0, -65532, 0, 0, -65531, 0, 0, -65530, 0, 0, -65529, 0, 0, -65528, 0, 0, -65527, 0, 0, -65526, 0, 0, -65525, 0, 0, -65524, 0, 0, -65523, 0, 0, -65522, 0, 0, -65521, 0, 0, -65520, 0, 0, -65519, 0, 0, -65518, 0, 0, -65517, 0, 0, -65516, 0, 0, -65515, 0, 0, -65514, 0, 0, -65513, 0, 0, -65512, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 14, 0, 0, 15, 0, 0, 16, 0, 0, 17, 0, 0, 18, 0, 0, 19, 0, 0, 20, 0, 0, 21, 0, 0, 22, 0, 0, 23, 0, 0, 24, 0, 0, 131071, 0, 0, 65536, 0, 0, 65559, 0, 0, 65560, 0, 0, 196607, 0, 0, 131072, 0, 0, 131095, 0, 0, 131096, 0, 0, 262143, 0, 0, 196608, 0, 0, 196631, 0, 0, 196632, 0, 0, 327679, 0, 0, 262144, 0, 0, 262145, 0, 0, 262146, 0, 0, 262147, 0, 0, 262167, 0, 0, 262168, 0, 0, 393215, 0, 0, 327680, 0, 0, 327681, 0, 0, 327682, 0, 0, 327683, 0, 0, 327703, 0, 0, 327704, 0, 0, 458751, 0, 0, 393216, 0, 0, 393217, 0, 0, 393218, 0, 0, 393219, 0, 0, 393224, 0, 0, 393225, 0, 0, 393226, 0, 0, 393227, 0, 0, 393228, 0, 0, 393231, 0, 0, 393239, 0, 0, 393240, 0, 0, 524287, 0, 0, 458752, 0, 0, 458753, 0, 0, 458754, 0, 0, 458755, 0, 0, 458760, 0, 0, 458761, 0, 0, 458762, 0, 0, 458763, 0, 0, 458764, 0, 0, 458765, 0, 0, 458766, 0, 0, 458767, 0, 0, 458768, 0, 0, 458772, 0, 0, 458773, 0, 0, 458774, 0, 0, 458775, 0, 0, 458776, 0, 0, 589823, 0, 0, 524288, 0, 0, 524289, 0, 0, 524290, 0, 0, 524291, 0, 0, 524296, 0, 0, 524297, 0, 0, 524298, 0, 0, 524299, 0, 0, 524300, 0, 0, 524301, 0, 0, 524302, 0, 0, 524303, 0, 0, 524304, 0, 0, 524305, 0, 0, 524306, 0, 0, 524307, 0, 0, 524308, 0, 0, 524309, 0, 0, 524310, 0, 0, 524311, 0, 0, 524312, 0, 0, 655359, 0, 0, 589824, 0, 0, 589825, 0, 0, 589826, 0, 0, 589827, 0, 0, 589832, 0, 0, 589833, 0, 0, 589834, 0, 0, 589835, 0, 0, 589836, 0, 0, 589837, 0, 0, 589838, 0, 0, 589839, 0, 0, 589840, 0, 0, 589841, 0, 0, 589842, 0, 0, 589843, 0, 0, 589844, 0, 0, 589845, 0, 0, 589846, 0, 0, 589847, 0, 0, 589848, 0, 0, 720895, 0, 0, 655360, 0, 0, 655361, 0, 0, 655362, 0, 0, 655363, 0, 0, 655368, 0, 0, 655369, 0, 0, 655370, 0, 0, 655371, 0, 0, 655372, 0, 0, 655373, 0, 0, 655374, 0, 0, 655375, 0, 0, 655376, 0, 0, 655377, 0, 0, 655378, 0, 0, 655379, 0, 0, 655380, 0, 0, 655381, 0, 0, 655382, 0, 0, 655383, 0, 0, 655384, 0, 0, 786431, 0, 0, 720896, 0, 0, 720897, 0, 0, 720898, 0, 0, 720899, 0, 0, 720904, 0, 0, 720905, 0, 0, 720906, 0, 0, 720907, 0, 0, 720908, 0, 0, 720909, 0, 0, 720910, 0, 0, 720911, 0, 0, 720912, 0, 0, 720913, 0, 0, 720914, 0, 0, 720915, 0, 0, 720916, 0, 0, 720917, 0, 0, 720918, 0, 0, 720919, 0, 0, 720920, 0, 0, 851967, 0, 0, 786432, 0, 0, 786433, 0, 0, 786434, 0, 0, 786435, 0, 0, 786436, 0, 0, 786439, 0, 0, 786440, 0, 0, 786441, 0, 0, 786442, 0, 0, 786443, 0, 0, 786444, 0, 0, 786445, 0, 0, 786446, 0, 0, 786447, 0, 0, 786448, 0, 0, 786449, 0, 0, 786450, 0, 0, 786451, 0, 0, 786452, 0, 0, 786453, 0, 0, 786454, 0, 0, 786455, 0, 0, 786456, 0, 0, 917503, 0, 0, 851968, 0, 0, 851969, 0, 0, 851970, 0, 0, 851971, 0, 0, 851972, 0, 0, 851973, 0, 0, 851974, 0, 0, 851975, 0, 0, 851976, 0, 0, 851977, 0, 0, 851978, 0, 0, 851979, 0, 0, 851980, 0, 0, 851981, 0, 0, 851982, 0, 0, 851983, 0, 0, 851984, 0, 0, 851985, 0, 0, 851986, 0, 0, 851987, 0, 0, 851988, 0, 0, 851989, 0, 0, 851990, 0, 0, 851991, 0, 0, 851992, 0, 0, 983039, 0, 0, 917504, 0, 0, 917505, 0, 0, 917506, 0, 0, 917507, 0, 0, 917508, 0, 0, 917509, 0, 0, 917510, 0, 0, 917511, 0, 0, 917512, 0, 0, 917513, 0, 0, 917514, 0, 0, 917515, 0, 0, 917516, 0, 0, 917517, 0, 0, 917518, 0, 0, 917519, 0, 0, 917520, 0, 0, 917521, 0, 0, 917522, 0, 0, 917523, 0, 0, 917524, 0, 0, 917525, 0, 0, 917526, 0, 0, 917527, 0, 0, 917528, 0, 0 ), SubResource( 3 ), [ "Cell", "Material", "Transform" ], ExtResource( 11 ), Vector2( 72, 184 ), SubResource( 4 ), ExtResource( 11 ), Vector2( 88, 200 ), SubResource( 4 ), ExtResource( 11 ), Vector2( 104, 200 ), SubResource( 4 ), ExtResource( 11 ), Vector2( 120, 184 ), SubResource( 4 ), ExtResource( 11 ), Vector2( 216, 104 ), SubResource( 4 ), ExtResource( 11 ), Vector2( 232, 104 ), SubResource( 4 ), ExtResource( 12 ), Vector2( 86.9036, 15.5476 ) ],
+"version": 2
+}
+
+[sub_resource type="PackedScene" id=6]
+
+_bundled = {
+"conn_count": 0,
+"conns": PoolIntArray(  ),
+"editable_instances": [  ],
+"names": PoolStringArray( "stage", "Node2D", "twn_stagefadein" ),
+"node_count": 3,
+"node_paths": [  ],
+"nodes": PoolIntArray( -1, -1, 1, 0, -1, 0, 0, 0, 0, 2147483647, 262146, 0, 0, 0, 0, 0, 2147483647, 524288, 1, 0, 0 ),
+"variants": [ ExtResource( 2 ), SubResource( 5 ) ],
+"version": 2
+}
+
+[node name="stage" type="Node2D"]
+
+[node name="bg" parent="." index="0" instance=ExtResource( 1 )]
+
+[node name="twn_stagefadein" parent="." index="1" instance=ExtResource( 2 )]
+
+[node name="stage" type="Control" parent="." index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Material", "Rect" ]
+
+[node name="tilemap" type="TileMap" parent="stage" index="0"]
+
+position = Vector2( 0, 1 )
+mode = 0
+tile_set = ExtResource( 3 )
+cell_size = Vector2( 16, 16 )
+cell_quadrant_size = 16
+cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+cell_half_offset = 2
+cell_tile_origin = 0
+cell_y_sort = false
+cell_clip_uv = false
+collision_use_kinematic = false
+collision_friction = 1.0
+collision_bounce = 0.0
+collision_layer = 5
+collision_mask = 1
+occluder_light_mask = 1
+format = 1
+tile_data = PoolIntArray( -1, 0, 0, -65536, 0, 0, -65535, 0, 0, -65534, 0, 0, -65533, 0, 0, -65532, 0, 0, -65531, 0, 0, -65530, 0, 0, -65529, 0, 0, -65528, 0, 0, -65527, 0, 0, -65526, 0, 0, -65525, 0, 0, -65524, 0, 0, -65523, 0, 0, -65522, 0, 0, -65521, 0, 0, -65520, 0, 0, -65519, 0, 0, -65518, 0, 0, -65517, 0, 0, -65516, 0, 0, -65515, 0, 0, -65514, 0, 0, -65513, 0, 0, -65512, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 14, 0, 0, 15, 0, 0, 16, 0, 0, 17, 0, 0, 18, 0, 0, 19, 0, 0, 20, 0, 0, 21, 0, 0, 22, 0, 0, 23, 0, 0, 24, 0, 0, 131071, 0, 0, 65536, 0, 0, 65559, 0, 0, 65560, 0, 0, 196607, 0, 0, 131072, 0, 0, 131095, 0, 0, 131096, 0, 0, 262143, 0, 0, 196608, 0, 0, 196631, 0, 0, 196632, 0, 0, 327679, 0, 0, 262144, 0, 0, 262167, 0, 0, 262168, 0, 0, 393215, 0, 0, 327680, 0, 0, 327703, 0, 0, 327704, 0, 0, 458751, 0, 0, 393216, 0, 0, 393239, 0, 0, 393240, 0, 0, 524287, 0, 0, 458752, 0, 0, 458775, 0, 0, 458776, 0, 0, 589823, 0, 0, 524288, 0, 0, 524311, 0, 0, 524312, 0, 0, 655359, 0, 0, 589824, 0, 0, 589847, 0, 0, 589848, 0, 0, 720895, 0, 0, 655360, 0, 0, 655383, 0, 0, 655384, 0, 0, 786431, 0, 0, 720896, 0, 0, 720919, 0, 0, 720920, 0, 0, 851967, 0, 0, 786432, 0, 0, 786455, 0, 0, 786456, 0, 0, 917503, 0, 0, 851968, 0, 0, 851969, 0, 0, 851970, 0, 0, 851971, 0, 0, 851972, 0, 0, 851973, 0, 0, 851974, 0, 0, 851975, 0, 0, 851976, 0, 0, 851977, 0, 0, 851978, 0, 0, 851979, 0, 0, 851980, 0, 0, 851981, 0, 0, 851982, 0, 0, 851983, 0, 0, 851984, 0, 0, 851985, 0, 0, 851986, 0, 0, 851987, 0, 0, 851988, 0, 0, 851989, 0, 0, 851990, 0, 0, 851991, 0, 0, 851992, 0, 0, 983039, 0, 0, 917504, 0, 0, 917505, 0, 0, 917506, 0, 0, 917507, 0, 0, 917508, 0, 0, 917509, 0, 0, 917510, 0, 0, 917511, 0, 0, 917512, 0, 0, 917513, 0, 0, 917514, 0, 0, 917515, 0, 0, 917516, 0, 0, 917517, 0, 0, 917518, 0, 0, 917519, 0, 0, 917520, 0, 0, 917521, 0, 0, 917522, 0, 0, 917523, 0, 0, 917524, 0, 0, 917525, 0, 0, 917526, 0, 0, 917527, 0, 0, 917528, 0, 0 )
+script = SubResource( 1 )
+_sections_unfolded = [ "Cell", "Collision", "Material", "Transform" ]
+
+[node name="tilemap_unphaseable" type="TileMap" parent="stage" index="1"]
+
+position = Vector2( 0, 1 )
+mode = 0
+tile_set = ExtResource( 4 )
+cell_size = Vector2( 16, 16 )
+cell_quadrant_size = 16
+cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+cell_half_offset = 2
+cell_tile_origin = 0
+cell_y_sort = false
+cell_clip_uv = false
+collision_use_kinematic = false
+collision_friction = 1.0
+collision_bounce = 0.0
+collision_layer = 5
+collision_mask = 1
+occluder_light_mask = 1
+format = 1
+tile_data = PoolIntArray(  )
+script = SubResource( 2 )
+_sections_unfolded = [ "Cell", "Collision", "Material", "Transform" ]
+
+[node name="str_tutorial" parent="stage" index="2" instance=ExtResource( 5 )]
+
+[node name="next_level" parent="stage" index="3" instance=ExtResource( 6 )]
+
+position = Vector2( 328, 184 )
+next_level = SubResource( 6 )
+
+[node name="player" parent="stage" index="4" instance=ExtResource( 9 )]
+
+position = Vector2( 200, 120 )
+_sections_unfolded = [ "Collision", "Material", "Transform", "Z Index" ]
+
+[node name="str_stagename" parent="stage" index="5" instance=ExtResource( 13 )]
+
+

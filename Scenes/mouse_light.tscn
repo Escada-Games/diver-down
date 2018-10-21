@@ -1,0 +1,75 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Resources/Textures/light.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=1]
+
+resource_name = "mouse_light"
+script/source = "extends Node2D
+var light_size=0
+func _ready(): set_process(true)
+func _process(delta):
+#	print(global.state)
+	var vector_target=Vector2()
+	if(global.state=='Stage_begin'):
+		vector_target=global.player.global_position
+		self.global_position=vector_target
+		light_size=lerp(light_size, 1, 0.1)
+		if(light_size>0.9):
+			global.state='Stage_ok'
+			light_size=1
+			get_viewport().warp_mouse(global.player.global_position)
+	elif(global.state=='Stage_end'):
+		vector_target=global.player.global_position
+		light_size=lerp(light_size, 0, 0.1)
+		if(light_size<0.1):
+			light_size=0
+			global.state='Stage_ended'
+	elif(global.state=='Stage_ended'):
+		global.next_stage()
+	else:
+		vector_target=get_global_mouse_position()
+	self.global_position=global.vector_lerp(self.global_position,vector_target,0.25)
+	$light_2d.texture_scale=light_size
+"
+_sections_unfolded = [ "Resource" ]
+
+[node name="mouse_light" type="Node2D"]
+
+script = SubResource( 1 )
+
+[node name="light_2d" type="Light2D" parent="." index="0"]
+
+enabled = true
+editor_only = false
+texture = ExtResource( 1 )
+offset = Vector2( 0, 0 )
+texture_scale = 1.0
+color = Color( 1, 1, 1, 1 )
+energy = 1.0
+mode = 2
+range_height = 0.0
+range_z_min = -1024
+range_z_max = 1024
+range_layer_min = 0
+range_layer_max = 0
+range_item_cull_mask = 1
+shadow_enabled = false
+shadow_color = Color( 1, 0, 0, 0 )
+shadow_buffer_size = 2048
+shadow_gradient_length = 0.0
+shadow_filter = 0
+shadow_filter_smooth = 0.0
+shadow_item_cull_mask = 1
+_sections_unfolded = [ "Range", "Shadow", "Transform", "Visibility" ]
+
+[node name="timer" type="Timer" parent="." index="1"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = true
+autostart = false
+
+[connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]
+
+

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Dive2.wav-14c3d523031c29bad33b207e5154838f.sample"
+
+[deps]
+
+source_file="res://Resources/SFX/Dive2.wav"
+source_md5="b589c6665c656212d3d71418d20915cf"
+
+dest_files=[ "res://.import/Dive2.wav-14c3d523031c29bad33b207e5154838f.sample" ]
+dest_md5="4446ada9fbae45b8d3e320cea8875ae5"
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

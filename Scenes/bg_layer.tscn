@@ -10,6 +10,9 @@ func _ready():
 		i.global_position.x=rand_range(16,384-16)
 		i.global_position.y=rand_range(16,216-16)
 		$parallax_layer.add_child(i)
+	set_process(true)
+func _process(delta):
+	self.offset.x=-0.02*(global.player.global_position.x-384/2)
 "
 
 [node name="bg" type="ParallaxBackground"]

@@ -263,9 +263,6 @@ bus = "sfx"
 stream = ExtResource( 9 )
 volume_db = -1.0
 bus = "sfx"
-
-[node name="camera2D" type="Camera2D" parent="."]
-anchor_mode = 0
 [connection signal="tween_completed" from="twn_dive" to="." method="_on_twn_dive_tween_completed"]
 [connection signal="tween_started" from="twn_dive" to="." method="_on_twn_dive_tween_started"]
 [connection signal="timeout" from="timers/tmr_spritetrail" to="." method="_on_tmr_spritetrail_timeout"]

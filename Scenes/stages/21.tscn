@@ -5,7 +5,6 @@
 [ext_resource path="res://Scenes/str_stagename.tscn" type="PackedScene" id=3]
 
 [sub_resource type="GDScript" id=1]
-
 script/source = "extends Node2D
 
 # class member variables go here, for example:
@@ -24,15 +23,10 @@ func _ready():
 "
 
 [sub_resource type="DynamicFont" id=2]
-
 size = 8
-use_mipmaps = false
-use_filter = false
 font_data = ExtResource( 2 )
-_sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 
 [sub_resource type="GDScript" id=3]
-
 script/source = "extends Label
 export (float) var extra_delay=0
 func _ready():
@@ -43,27 +37,16 @@ func _ready():
 	$twn_goup.interpolate_property(self, 'rect_global_position:y', self.rect_global_position.y, self.rect_global_position.y-16, 2.0, Tween.TRANS_QUART, Tween.EASE_IN_OUT, 0.5+extra_delay)
 	$twn_goup.start()"
 
-[node name="21" type="Node2D" index="0"]
-
+[node name="21" type="Node2D"]
 script = SubResource( 1 )
 
-[node name="stage" type="Control" parent="." index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
+[node name="stage" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 320.0
 margin_bottom = 152.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 
-[node name="str_tutorial" parent="stage" index="0" instance=ExtResource( 1 )]
-
+[node name="str_tutorial" parent="stage" instance=ExtResource( 1 )]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 56.0
@@ -72,8 +55,7 @@ margin_bottom = 56.0
 text = "Hey, you did it! You beat the game."
 align = 1
 
-[node name="str_tutorial2" parent="stage" index="1" instance=ExtResource( 1 )]
-
+[node name="str_tutorial2" parent="stage" instance=ExtResource( 1 )]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 141.0
@@ -83,8 +65,7 @@ text = "Thanks a lot for playing! It means a lot to us."
 align = 1
 extra_delay = 3.0
 
-[node name="str_tutorial3" parent="stage" index="2" instance=ExtResource( 1 )]
-
+[node name="str_tutorial3" parent="stage" instance=ExtResource( 1 )]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 90.0
@@ -94,98 +75,39 @@ text = "In case you are interested, your time was"
 align = 1
 extra_delay = 1.0
 
-[node name="str_tutorial4" type="Label" parent="stage" index="3"]
-
-editor/display_folded = true
-anchor_left = 0.0
-anchor_top = 0.0
+[node name="str_tutorial4" type="Label" parent="stage"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 106.0
 margin_bottom = 106.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
 custom_fonts/font = SubResource( 2 )
 custom_colors/font_color_shadow = Color( 0.33, 0.33, 0.33, 1 )
 text = "<<Time here>>"
 align = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
 script = SubResource( 3 )
-_sections_unfolded = [ "Rect", "custom_colors", "custom_constants", "custom_fonts" ]
 extra_delay = 1.5
 
-[node name="twn_fade" type="Tween" parent="stage/str_tutorial4" index="0"]
+[node name="twn_fade" type="Tween" parent="stage/str_tutorial4"]
 
-repeat = false
-playback_process_mode = 1
-playback_speed = 1.0
-playback/active = false
-playback/repeat = false
-playback/speed = 1.0
+[node name="twn_goup" type="Tween" parent="stage/str_tutorial4"]
 
-[node name="twn_goup" type="Tween" parent="stage/str_tutorial4" index="1"]
-
-repeat = false
-playback_process_mode = 1
-playback_speed = 1.0
-playback/active = false
-playback/repeat = false
-playback/speed = 1.0
-
-[node name="str_tutorial5" type="Label" parent="stage" index="4"]
-
-editor/display_folded = true
-anchor_left = 0.0
-anchor_top = 0.0
+[node name="str_tutorial5" type="Label" parent="stage"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 202.0
 margin_bottom = 202.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
 custom_fonts/font = SubResource( 2 )
 custom_colors/font_color_shadow = Color( 0.33, 0.33, 0.33, 1 )
 text = "Uh... yeah. There's nothing more to see here."
 align = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
 script = SubResource( 3 )
-_sections_unfolded = [ "Rect", "custom_colors", "custom_constants", "custom_fonts" ]
 extra_delay = 60.0
 
-[node name="twn_fade" type="Tween" parent="stage/str_tutorial5" index="0"]
+[node name="twn_fade" type="Tween" parent="stage/str_tutorial5"]
 
-repeat = false
-playback_process_mode = 1
-playback_speed = 1.0
-playback/active = false
-playback/repeat = false
-playback/speed = 1.0
+[node name="twn_goup" type="Tween" parent="stage/str_tutorial5"]
 
-[node name="twn_goup" type="Tween" parent="stage/str_tutorial5" index="1"]
-
-repeat = false
-playback_process_mode = 1
-playback_speed = 1.0
-playback/active = false
-playback/repeat = false
-playback/speed = 1.0
-
-[node name="str_stagename" parent="stage" index="5" instance=ExtResource( 3 )]
-
+[node name="str_stagename" parent="stage" instance=ExtResource( 3 )]
 margin_top = 272.0
 margin_bottom = 292.0
 text = "End"
-
-

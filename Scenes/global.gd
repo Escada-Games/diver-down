@@ -1,5 +1,5 @@
 extends Node
-
+const defaultResolution=Vector2(384,216)
 var player
 var lr=50 #Light radius
 var state='Stage_begin'
@@ -92,9 +92,9 @@ func next_stage(): #@ Add a delay here maybe
 
 func change_stage(stage):
 	var target=get_tree().current_scene
-	twn.interpolate_property(target, 'modulate:a', target.modulate.a, 0, 0.4, Tween.TRANS_QUART, Tween.EASE_IN)
-	twn.start()
-	yield(twn, "tween_completed")
+#	twn.interpolate_property(target, 'modulate:a', target.modulate.a, 0, 0.4, Tween.TRANS_QUART, Tween.EASE_IN)
+#	twn.start()
+#	yield(twn, "tween_completed")
 #	var i=stage.instance()
 #	i.add_child(stage_fadein.instance())
 	if stage.instance().get_node('stage/str_stagename').text=='Stage 2: Going up':

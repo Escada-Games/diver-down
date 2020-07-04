@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Scenes/bg_layer.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/twn_stagefadein.tscn" type="PackedScene" id=2]
@@ -11,12 +11,7 @@
 [ext_resource path="res://Scenes/str_stagename.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/grass.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scenes/vine.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Resources/Textures/lightCircle.png" type="Texture" id=12]
 [ext_resource path="res://Resources/SFX/Laser_shoot 6.wav" type="AudioStream" id=13]
-[ext_resource path="res://Resources/MoreTextures/transitionTexture.png" type="Texture" id=14]
-
-[sub_resource type="CanvasItemMaterial" id=1]
-light_mode = 2
 
 [sub_resource type="GDScript" id=4]
 script/source = "extends TileMap
@@ -68,57 +63,7 @@ func _ready():
 
 [node name="twn_stagefadein" parent="." instance=ExtResource( 2 )]
 
-[node name="transitionLayer" type="CanvasLayer" parent="."]
-layer = 10
-
-[node name="fgTransition" type="Control" parent="transitionLayer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="textureRect2" type="TextureRect" parent="transitionLayer/fgTransition"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 14 )
-expand = true
-stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="textureRect" type="TextureRect" parent="transitionLayer/fgTransition"]
-material = SubResource( 1 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 14 )
-expand = true
-stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="sprite" type="Sprite" parent="transitionLayer/fgTransition"]
-material = SubResource( 1 )
-texture = ExtResource( 14 )
-centered = false
-
-[node name="light2D" type="Light2D" parent="transitionLayer/fgTransition"]
-position = Vector2( 214.033, 136.904 )
-texture = ExtResource( 12 )
-mode = 2
-__meta__ = {
-"_editor_description_": ""
-}
-
 [node name="stage" type="Control" parent="."]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 

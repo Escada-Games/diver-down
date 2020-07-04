@@ -1,6 +1,5 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Resources/Textures/lightCircle.png" type="Texture" id=1]
 [ext_resource path="res://Resources/MoreTextures/transitionTexture.png" type="Texture" id=2]
 
 [sub_resource type="CanvasItemMaterial" id=1]
@@ -24,12 +23,4 @@ expand = true
 stretch_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
-}
-
-[node name="light2D" type="Light2D" parent="."]
-position = Vector2( 185.535, 60.8528 )
-texture = ExtResource( 1 )
-mode = 2
-__meta__ = {
-"_editor_description_": ""
 }

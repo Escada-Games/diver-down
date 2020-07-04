@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Resources/MoreTextures/transitionTexture.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/screenTransition/transitionLayer.gd" type="Script" id=2]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+light_mode = 2
+
+[node name="transitionLayer" type="CanvasLayer"]
+layer = 0
+script = ExtResource( 2 )
+
+[node name="twnGrow" type="Tween" parent="."]
+
+[node name="lights" type="Node2D" parent="."]
+
+[node name="textureRect" type="TextureRect" parent="."]
+material = SubResource( 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}

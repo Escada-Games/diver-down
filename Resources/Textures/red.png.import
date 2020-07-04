@@ -3,20 +3,21 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/red.png-885fc83e904f7d09fe0dbf57f1860ccb.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://Resources/Textures/red.png"
-source_md5="75c32b7136d577aa02a4d47e39977392"
-
 dest_files=[ "res://.import/red.png-885fc83e904f7d09fe0dbf57f1860ccb.stex" ]
-dest_md5="0c44f3e825c245671e88e60341f8f5b0"
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=false
@@ -26,6 +27,7 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true

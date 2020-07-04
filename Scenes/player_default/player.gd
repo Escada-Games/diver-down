@@ -1,13 +1,13 @@
 extends KinematicBody2D
 
-var id = self
-var vector_velocity = Vector2()
+var id=self
+var vectorVelocity=Vector2()
 var vector_gravity = Vector2()
 export var last_horizontal_direction = 1
 var active=true
 var anim=''
 
-enum States {State_normal, State_dive}
+enum {State_normal, State_dive}
 var state = State_normal
 
 export var flag_constant_spritetrail = false
@@ -19,7 +19,7 @@ const vector_gravity_up = Vector2(0, 10)
 const vector_gravity_down = Vector2(0, 12.5)
 
 const vector_normal=Vector2(0, -1)
-const maximum_speed=120
+const maximum_speed=95#120
 const jump_force=175
 
 var airTime=0
@@ -28,7 +28,6 @@ var jumpBuffer=0
 const maxJumpBuffer=2.5
 var diveBuffer=0
 const maxDiveBuffer=0.51
-var was_on_floor=false
 var target_rotation=0
 const twn_duration=0.25
 const spritetrail=preload('res://Scenes/spritetrail/sprite_trail.tscn')
@@ -41,26 +40,19 @@ func _ready():
 	$dive_aim.rotation=0 if self.last_horizontal_direction==1 else -PI
 
 func _physics_process(delta):
-	$sprite.flip_h=false if(last_horizontal_direction==1) else true #@Make this more intuitive I guess
-	
-	if(vector_velocity.x!=0): anim='walk'
-	else: anim='idle'
-	if(vector_velocity.y>0 and not is_on_floor()): anim='going_down'
-	if(vector_velocity.y<0 and not is_on_floor()): anim='going_up'
+	$sprite.flip_h=false if(last_horizontal_direction==1) else true
+	if self.is_on_floor():
+		anim="walk" if not abs(vectorVelocity.x)<=10 else "idle"
+	else:
+		anim="going_up" if vectorVelocity.y<0 else "goind_down"
 	if($animation_player.current_animation!=anim): $animation_player.play(anim)
 
 	if flag_constant_spritetrail: _create_spritetrail()
 	if Input.is_action_just_pressed('ui_reset'): get_tree().reload_current_scene()
 	
-	var vector_direction_input=Vector2(1 if Input.is_action_pressed('ui_right') else -1 if Input.is_action_pressed('ui_left') else 0, 1 if Input.is_action_pressed('ui_down') else -1 if Input.is_action_pressed('ui_up') else 0) #Yeah I know this might be very obnoxious, but writing it like this makes me feel like a good programmer, you know?
+	var vector_direction_input=Vector2(1 if Input.is_action_pressed('ui_right') else -1 if Input.is_action_pressed('ui_left') else 0, 1 if Input.is_action_pressed('ui_down') else -1 if Input.is_action_pressed('ui_up') else 0)
 	last_horizontal_direction=vector_direction_input.x if vector_direction_input.x != 0 else last_horizontal_direction
-#	target_rotation=vector_direction_input.normalized().angle() if vector_direction_input!=Vector2() else target_rotation
-#	if vector_direction_input!=Vector2():
-#		target_rotation=vector_direction_input.normalized().angle() if abs(target_rotation-vector_direction_input.normalized().angle())<3*PI/2 else vector_direction_input.normalized().angle()+2*PI
-#	if abs(target_rotation-2*PI)<=0.1: target_rotation=0
-#	$dive_aim.rotation=lerp($dive_aim.rotation,target_rotation,0.25)
 	if vector_direction_input!=Vector2(): $dive_aim.rotation=vector_direction_input.angle()
-	
 	
 	if self.active:
 		if state==State_normal: _state_normal(delta,vector_direction_input)
@@ -69,28 +61,19 @@ func _physics_process(delta):
 func _state_normal(delta,vector_direction_input):
 	set_collision_layer_bit(0, true)
 	set_collision_mask_bit(0, true)
-	vector_gravity=vector_gravity_up if (vector_velocity.y<0&&Input.is_action_pressed('ui_jump')) else vector_gravity_down
-	
-	if is_on_floor():
-		airTime=0
-		if not was_on_floor:
-			#@This is not working, yeah...
-			print('Player: Landing')
-			$sounds/snd_land.play()
-	else: airTime+=1
+	vector_gravity=vector_gravity_up if (vectorVelocity.y<0 and Input.is_action_pressed('ui_jump')) else vector_gravity_down
 	
 	if Input.is_action_just_pressed('ui_jump'):jumpBuffer=maxJumpBuffer
 	if Input.is_action_just_pressed('ui_dive'):diveBuffer=maxDiveBuffer
 	jumpBuffer-=0.5
 	diveBuffer-=0.5
 	
-	if jumpBuffer>0 and self.airTime<=self.maxAirTime:# and is_on_floor():
+	if jumpBuffer>0 and self.is_on_floor():
 		jumpBuffer=0
 		_twn_squishy()
 		$sounds/snd_jump.play()
-		vector_velocity.y=-jump_force
-	
-#	if Input.is_action_just_pressed('ui_dive') and dive_aim.get_overlapping_bodies().size()>0:
+		vectorVelocity.y=-jump_force
+		
 	if diveBuffer>0 and dive_aim.get_overlapping_bodies().size()>0:
 		var phaseable=true
 		for body in dive_aim.get_overlapping_bodies():
@@ -105,17 +88,17 @@ func _state_normal(delta,vector_direction_input):
 			$twn_dive.interpolate_property(self, 'global_position', self.global_position,vector_target_position, twn_duration, Tween.TRANS_QUART, Tween.EASE_OUT)
 			$twn_dive.start()
 			create_splash(20,30,-(self.global_position-vector_target_position),(self.global_position-vector_target_position)/2)
-	#		print('Player: ' + str(vector_target_position))
 	else:
-		vector_velocity.x=lerp(vector_velocity.x, maximum_speed*vector_direction_input.x, lerp_constant)
-		vector_velocity.y+=vector_gravity.y
-		vector_velocity=move_and_slide(vector_velocity, vector_normal)
-	was_on_floor=is_on_floor()
+		vectorVelocity.x=lerp(vectorVelocity.x, maximum_speed*vector_direction_input.x, lerp_constant)
+		var initialVelocity=vectorVelocity
+		vectorVelocity.y+=vector_gravity.y
+		vectorVelocity=move_and_slide(vectorVelocity, vector_normal)
+		if initialVelocity.y!=vectorVelocity.y and self.is_on_floor():
+			$sounds/snd_land.play()
 
 func _state_dive(delta,vector_direction_input):
 	if Input.is_action_just_pressed('ui_dive'):diveBuffer=maxDiveBuffer
 	diveBuffer-=0.5
-#	if Input.is_action_just_pressed('ui_dive') and dive_aim.get_overlapping_bodies().size()==0:
 	if diveBuffer>0 and dive_aim.get_overlapping_bodies().size()==0:
 		global.changeFromLowPassMusic()
 		$sounds/snd_dive_away.play()
@@ -124,7 +107,7 @@ func _state_dive(delta,vector_direction_input):
 		$twn_dive.interpolate_property(self, 'global_position', self.global_position,vector_target_position, twn_duration*0.8, Tween.TRANS_QUART, Tween.EASE_OUT)
 		$twn_dive.start() 
 		create_splash(10,15,(self.global_position-vector_target_position),(self.global_position-vector_target_position)/2)
-		vector_velocity=Vector2()#(self.global_position-vector_target_position).normalized()*maximum_speed #Add conservation of momentum maybe
+		vectorVelocity=Vector2()#(self.global_position-vector_target_position).normalized()*maximum_speed #Add conservation of momentum maybe
 		#@Maybe allow for diving without the position "fixing" //@Add a dive buffer as well
 
 func create_splash(minimum=5,maximum=10,direction=Vector2(0,-1),offset=Vector2()):
@@ -167,10 +150,8 @@ func _on_twn_dive_tween_completed(object, key):
 	self.active=true
 	self.flag_constant_spritetrail=false
 	if self.state==State_normal:
-#		$eyes.visible=false
 		set_collision_layer_bit(1, false)
 		set_collision_mask_bit(1, false)
 	else:
 		pass
-#		$eyes.visible=true
 

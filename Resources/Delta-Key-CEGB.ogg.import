@@ -7,10 +7,7 @@ path="res://.import/Delta-Key-CEGB.ogg-365fd4102a575bd2167610c6a1bb09c7.oggstr"
 [deps]
 
 source_file="res://Resources/Delta-Key-CEGB.ogg"
-source_md5="bfa470ac1c08e1892c38faefb93acde7"
-
 dest_files=[ "res://.import/Delta-Key-CEGB.ogg-365fd4102a575bd2167610c6a1bb09c7.oggstr" ]
-dest_md5="4088cb051f6ec98987bd6009e7250114"
 
 [params]
 

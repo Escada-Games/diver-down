@@ -3,20 +3,21 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/mato.png-451c5264652cc9bf64cc0bed9c2b532a.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://Resources/MoreTextures/mato.png"
-source_md5="0e57977020ca3a8a3d81a83f622e5330"
-
 dest_files=[ "res://.import/mato.png-451c5264652cc9bf64cc0bed9c2b532a.stex" ]
-dest_md5="108ac4bff95517d0dadf5b9cbb51f9cd"
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=false
@@ -26,6 +27,7 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true

@@ -3,20 +3,21 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/tileset_emptytiles.png-90b234945b16ad442d973efeb104bb6d.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://Resources/MoreTextures/tileset_emptytiles.png"
-source_md5="0ea7223a77f986b47d87cf2be88c91c7"
-
 dest_files=[ "res://.import/tileset_emptytiles.png-90b234945b16ad442d973efeb104bb6d.stex" ]
-dest_md5="c82ab8b78095e6ce4ba15b4f1d8c5cef"
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=false
@@ -26,6 +27,7 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true

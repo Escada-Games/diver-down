@@ -7,10 +7,7 @@ path="res://.import/Laser_shoot 6.wav-86ab9bb9c4d9b0bab3b7f074452ea74c.sample"
 [deps]
 
 source_file="res://Resources/SFX/Laser_shoot 6.wav"
-source_md5="704eda061fccd9fe79ea6c6072b32978"
-
 dest_files=[ "res://.import/Laser_shoot 6.wav-86ab9bb9c4d9b0bab3b7f074452ea74c.sample" ]
-dest_md5="5a7e0bb57d020bd9bc85bb90266fd71b"
 
 [params]
 

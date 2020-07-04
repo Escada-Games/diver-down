@@ -3,20 +3,21 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/Splash1.png-5ff08b6142e672750ffed47c2dc40025.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://Resources/MoreTextures/Splash1.png"
-source_md5="03f293234ae24cc1705ffe5d3a220c8a"
-
 dest_files=[ "res://.import/Splash1.png-5ff08b6142e672750ffed47c2dc40025.stex" ]
-dest_md5="803c2d431a3a0818bb426d6765c1e78b"
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
@@ -26,6 +27,7 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true

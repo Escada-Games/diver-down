@@ -7,10 +7,7 @@ path="res://.import/Dive3.wav-a2b98815dbc7cf900ea6dffa9e91f666.sample"
 [deps]
 
 source_file="res://Resources/SFX/Dive3.wav"
-source_md5="9bef62cc14b805a42e3fdba61213e638"
-
 dest_files=[ "res://.import/Dive3.wav-a2b98815dbc7cf900ea6dffa9e91f666.sample" ]
-dest_md5="ddbce1cfa322e62ce0a32c581ca46626"
 
 [params]
 

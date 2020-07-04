@@ -3,20 +3,21 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/green.png-6b5b542de6ec6a358aae24602f82770d.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://Resources/Textures/green.png"
-source_md5="5c6d483bc96e05243a27e6bea2edbcd2"
-
 dest_files=[ "res://.import/green.png-6b5b542de6ec6a358aae24602f82770d.stex" ]
-dest_md5="f055d8ce96644dde26bcc6d3d2ec1944"
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=false
@@ -26,6 +27,7 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true

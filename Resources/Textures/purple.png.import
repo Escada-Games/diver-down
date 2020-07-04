@@ -3,20 +3,21 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/purple.png-383723852c9aafd0ebdf6aaa3c086509.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://Resources/Textures/purple.png"
-source_md5="9dfe2b13fb260ff1fcac9ba66b1748f9"
-
 dest_files=[ "res://.import/purple.png-383723852c9aafd0ebdf6aaa3c086509.stex" ]
-dest_md5="549d24e6f98d502977b32aa992fb825a"
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=false
@@ -26,6 +27,7 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true

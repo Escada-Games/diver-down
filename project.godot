@@ -120,7 +120,7 @@ ui_mute={
 
 [node]
 
-name_casing=2
+name_casing=1
 
 [rendering]
 

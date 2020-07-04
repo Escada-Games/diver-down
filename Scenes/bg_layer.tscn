@@ -1,8 +1,7 @@
 [gd_scene load_steps=2 format=2]
 
 [sub_resource type="GDScript" id=1]
-
-script/source = "extends CanvasLayer
+script/source = "extends ParallaxBackground
 
 const bg=preload(\"res://Scenes/bg.tscn\")
 func _ready():
@@ -10,20 +9,15 @@ func _ready():
 		var i=bg.instance()
 		i.global_position.x=rand_range(16,384-16)
 		i.global_position.y=rand_range(16,216-16)
-		add_child(i)
+		$parallax_layer.add_child(i)
 "
 
-[node name="bg" type="CanvasLayer" index="0"]
-
+[node name="bg" type="ParallaxBackground"]
 layer = -1
-offset = Vector2( 0, 0 )
-rotation = 0.0
-scale = Vector2( 1, 1 )
-transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+scroll_base_scale = Vector2( 0.2, 1 )
 script = SubResource( 1 )
 
-[node name="canvas_modulate" type="CanvasModulate" parent="." index="0"]
-
+[node name="canvas_modulate" type="CanvasModulate" parent="."]
 color = Color( 0.75, 0.75, 0.8, 1 )
 
-
+[node name="parallax_layer" type="ParallaxLayer" parent="."]

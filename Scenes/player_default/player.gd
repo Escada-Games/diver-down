@@ -31,6 +31,7 @@ const maxDiveBuffer=0.51
 var target_rotation=0
 const twn_duration=0.25
 const spritetrail=preload('res://Scenes/spritetrail/sprite_trail.tscn')
+const spherizeShader=preload("res://Scenes/spherizeShader.tscn")
 const drop=preload("res://Scenes/drop.tscn")
 
 onready var dive_aim=$dive_aim/dive_aim
@@ -88,6 +89,7 @@ func _state_normal(delta,vector_direction_input):
 			$twn_dive.interpolate_property(self, 'global_position', self.global_position,vector_target_position, twn_duration, Tween.TRANS_QUART, Tween.EASE_OUT)
 			$twn_dive.start()
 			create_splash(20,30,-(self.global_position-vector_target_position),(self.global_position-vector_target_position)/2)
+			createSpherize()
 	else:
 		vectorVelocity.x=lerp(vectorVelocity.x, maximum_speed*vector_direction_input.x, lerp_constant)
 		var initialVelocity=vectorVelocity
@@ -116,7 +118,10 @@ func create_splash(minimum=5,maximum=10,direction=Vector2(0,-1),offset=Vector2()
 		i.global_position=self.global_position+offset*Vector2(rand_range(-0.5,0.5),rand_range(-0.5,0.5))
 		i.direction=direction.normalized()
 		get_tree().current_scene.add_child(i)
-
+func createSpherize():
+	var i=spherizeShader.instance()
+	i.global_position=self.global_position
+	get_tree().root.add_child(i)
 func _create_spritetrail():
 	if flag_can_create_spritetrail == true:
 		flag_can_create_spritetrail = false; $timers/tmr_spritetrail.start()

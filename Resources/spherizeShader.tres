@@ -1,0 +1,45 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "//Copy-paste from a comment here: https://godotengine.org/qa/13023/shaders-how-does-one-create-blackhole-effect-using-shaders
+shader_type canvas_item;
+// Be gentle on this one
+uniform float strength = 0;
+
+float sqr(float x) {return x*x;}
+
+float shelf_curve(float x){
+	// Simple parabola. Could use a smoothstep instead?
+	return clamp(1.0 - sqr(2.0*x), 0, 1);
+}
+
+void fragment(){
+	// Get direction and distance to the black hole center
+	vec2 diff = vec2(0.5, 0.5) - vec2(UV.x, 1.0-UV.y);
+	float d = length(diff);
+	vec2 dir = normalize(diff);
+	
+	// This is a 0..1 value that will nullify displacement around the bounds of the effect,
+	// for a seamless transition between the effect's area and the unaffected world pixels.
+	float shelf = shelf_curve(length(UV-vec2(0.5, 0.5)));
+	
+	// Calculate displacement amount
+	float displacement = strength / (d*d + 0.01);
+	
+	// Calculate distorted screen-space texture coordinates
+	vec2 uv = SCREEN_UV + dir * (displacement * shelf);
+	
+	// Output pixels from the screen using distorted UVs
+//	vec3 col = texscreen(uv);
+	vec2 PixelSize = TEXTURE_PIXEL_SIZE;
+	vec4 r_val = texture(SCREEN_TEXTURE, uv);
+	vec4 g_val = texture(SCREEN_TEXTURE, uv);
+	vec4 b_val = texture(SCREEN_TEXTURE, uv);
+	
+	vec3 col = vec3(r_val.r, g_val.g, b_val.b);
+	COLOR.rgb = col;
+}"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/strength = 0.01

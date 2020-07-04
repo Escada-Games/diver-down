@@ -37,13 +37,13 @@ const drop=preload("res://Scenes/drop.tscn")
 onready var dive_aim=$dive_aim/dive_aim
 func _ready():
 	add_to_group('Player')
-	global.player = id
+	global.player=self
 	$dive_aim.rotation=0 if self.last_horizontal_direction==1 else -PI
 
 func _physics_process(delta):
 	$sprite.flip_h=false if(last_horizontal_direction==1) else true
 	if self.is_on_floor():
-		anim="walk" if not abs(vectorVelocity.x)<=10 else "idle"
+		anim="idle" if abs(vectorVelocity.x)<=10 else "walk"
 	else:
 		anim="going_up" if vectorVelocity.y<0 else "goind_down"
 	if($animation_player.current_animation!=anim): $animation_player.play(anim)
@@ -77,6 +77,7 @@ func _state_normal(delta,vector_direction_input):
 		
 	if diveBuffer>0 and dive_aim.get_overlapping_bodies().size()>0:
 		var phaseable=true
+		#Check if the tileset is unphaseable
 		for body in dive_aim.get_overlapping_bodies():
 			if body.is_in_group('Unphaseable'): phaseable=false
 		if phaseable:
@@ -84,15 +85,15 @@ func _state_normal(delta,vector_direction_input):
 			if randf()<=0.5: $sounds/snd_dive.play()
 			else: $sounds/snd_dive1.play()
 			self.state=State_dive
-			var cursor_position=dive_aim.get_node('position_2d').global_position-Vector2(0,1)#dive_aim.get_node("collision_shape_2d").global_position+dive_aim.get_node("collision_shape_2d").shape.extents*Vector2(1,1)
+			var cursor_position=dive_aim.get_node('position_2d').global_position-Vector2(0,1)
 			var vector_target_position=Vector2(floor(cursor_position.x/global.tile_size.x)*global.tile_size.x,floor(cursor_position.y/global.tile_size.y)*global.tile_size.y)+global.tile_size/2
 			$twn_dive.interpolate_property(self, 'global_position', self.global_position,vector_target_position, twn_duration, Tween.TRANS_QUART, Tween.EASE_OUT)
 			$twn_dive.start()
 			create_splash(20,30,-(self.global_position-vector_target_position),(self.global_position-vector_target_position)/2)
 			createSpherize()
 	else:
-		vectorVelocity.x=lerp(vectorVelocity.x, maximum_speed*vector_direction_input.x, lerp_constant)
 		var initialVelocity=vectorVelocity
+		vectorVelocity.x=lerp(vectorVelocity.x, maximum_speed*vector_direction_input.x, lerp_constant)
 		vectorVelocity.y+=vector_gravity.y
 		vectorVelocity=move_and_slide(vectorVelocity, vector_normal)
 		if initialVelocity.y!=vectorVelocity.y and self.is_on_floor():
@@ -109,6 +110,7 @@ func _state_dive(delta,vector_direction_input):
 		$twn_dive.interpolate_property(self, 'global_position', self.global_position,vector_target_position, twn_duration*0.8, Tween.TRANS_QUART, Tween.EASE_OUT)
 		$twn_dive.start() 
 		create_splash(10,15,(self.global_position-vector_target_position),(self.global_position-vector_target_position)/2)
+		createSpherize()
 		vectorVelocity=Vector2()#(self.global_position-vector_target_position).normalized()*maximum_speed #Add conservation of momentum maybe
 		#@Maybe allow for diving without the position "fixing" //@Add a dive buffer as well
 

@@ -36,36 +36,36 @@ func _ready():
 	randomize()
 	OS.window_size*=2
 	
-	print('Global: Creating a Tween node...')
+	print_debug('Global: Creating a Tween node...')
 	var i=Tween.new()
 	i.name='twn'
 	add_child(i)
 	twn=get_node('twn')
-	print('Global: Done creating a Tween node.')
+	print_debug('Global: Done creating a Tween node.')
 	
-	print('Global: Adding the Pause Manager to childrens...')
+	print_debug('Global: Adding the Pause Manager to childrens...')
 	add_child(pause_manager.instance())
-	print('Global: Done adding the Pause Manager.')
+	print_debug('Global: Done adding the Pause Manager.')
 	
-	print('Global: Creating a Canvas Modulate to add some blue tint to the screen...')
+	print_debug('Global: Creating a Canvas Modulate to add some blue tint to the screen...')
 	var j=CanvasModulate.new()
 	j.name='tint'
 	j.color=blue_tint
 	add_child(j)
-	print('Global: Done adding the Canvas Modulate.')
+	print_debug('Global: Done adding the Canvas Modulate.')
 	
-	print('Global: Turning processing on, for displaying the FPS on the window name...')
+	print_debug('Global: Turning processing on, for displaying the FPS on the window name...')
 	set_process(true)
-	print('Global: Done turning processing on.')
+	print_debug('Global: Done turning processing on.')
 	
-	print('Global: Adding the first music...')
+	print_debug('Global: Adding the first music...')
 	var k=music1.instance()
 	k.name='music'
 	add_child(k)
-	print('Global: Done! Have fun with the same chord played over and over!')
+	print_debug('Global: Done! Have fun with the same chord played over and over!')
 	
-	print('Global: Creating a Timer for the people that will speedrun this game...')
-	print('Global: (I guess no one will do such thing, but... meh, whatever I guess)')
+	print_debug('Global: Creating a Timer for the people that will speedrun this game...')
+	print_debug('Global: (I guess no one will do such thing, but... meh, whatever I guess)')
 	var l=Timer.new()
 	l.name='timer'
 	l.wait_time=60
@@ -73,9 +73,9 @@ func _ready():
 	l.one_shot=false
 	l.connect("timeout", global, 'add_to_minutes')
 	add_child(l)
-	print('Global: Done! Timer added.')
+	print_debug('Global: Done! Timer added.')
 	
-	print('Global: Ready! Hope you have fun!')
+	print_debug('Global: Ready! Hope you have fun!')
 
 func add_to_minutes(): minutes+=1
 func startTimer(): $timer.start()
@@ -118,7 +118,7 @@ func change_stage(stage):
 func reload_stage():
 	if get_tree().current_scene.modulate.a==1:
 		changeFromLowPassMusic()
-		print('Global: Reseting current stage.')
+		print_debug('Global: Reseting current stage.')
 		get_tree().paused=true
 		$tint.color=red_tint
 		yield(get_tree().create_timer(0.75), 'timeout')
@@ -129,16 +129,16 @@ func reload_stage():
 #	get_tree().reload_current_scene()
 #	add_child(stage_reseter.instance())
 func changeToLowPassMusic():
-	print('Global: Changing to filtered music.')
+	print_debug('Global: Changing to filtered music.')
 	AudioServer.set_bus_mute(AudioServer.get_bus_index('bgm'), true)
 	AudioServer.set_bus_mute(AudioServer.get_bus_index('bgm_lp'), false)
-	print('Global: Done, the music was changed.')
+	print_debug('Global: Done, the music was changed.')
 
 func changeFromLowPassMusic():
-	print('Global: Changing to unfiltered music.')
+	print_debug('Global: Changing to unfiltered music.')
 	AudioServer.set_bus_mute(AudioServer.get_bus_index('bgm'), false)
 	AudioServer.set_bus_mute(AudioServer.get_bus_index('bgm_lp'), true)
-	print('Global: Done, the music was changed.')
+	print_debug('Global: Done, the music was changed.')
 
 func vector_lerp(begin=Vector2(), end=Vector2(), alpha=0.1):
 	var x=lerp(begin.x, end.x, alpha)

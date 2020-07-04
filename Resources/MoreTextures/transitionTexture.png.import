@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/lightCircle.png-a3507553ed6057620698a8dd1a17667a.stex"
+path="res://.import/transitionTexture.png-c77130e75076e55f6821bd24f8113138.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Textures/lightCircle.png"
-dest_files=[ "res://.import/lightCircle.png-a3507553ed6057620698a8dd1a17667a.stex" ]
+source_file="res://Resources/MoreTextures/transitionTexture.png"
+dest_files=[ "res://.import/transitionTexture.png-c77130e75076e55f6821bd24f8113138.stex" ]
 
 [params]
 

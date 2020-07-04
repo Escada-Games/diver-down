@@ -4,8 +4,6 @@
 [ext_resource path="res://Resources/help/light2dAsMask/splat.png" type="Texture" id=2]
 [ext_resource path="res://icon.png" type="Texture" id=3]
 
-
-
 [sub_resource type="CanvasItemMaterial" id=1]
 light_mode = 2
 
@@ -93,7 +91,3 @@ mode = 2
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "maskmotion"
 anims/maskmotion = SubResource( 2 )
-
-[node name="Camera2D" type="Camera2D" parent="."]
-offset = Vector2( 512, 300 )
-current = true

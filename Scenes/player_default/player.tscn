@@ -121,6 +121,23 @@ tracks/1/keys = {
 "update": 1,
 "values": [ Vector2( 0, 1 ), Vector2( 0, 1 ), Vector2( 0, 1 ), Vector2( 0, 1 ) ]
 }
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "footstepSfx"
+}, {
+"args": [  ],
+"method": "footstepSfx"
+} ]
+}
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 4, 7 )
@@ -262,6 +279,11 @@ bus = "sfx"
 [node name="snd_dive_away" type="AudioStreamPlayer" parent="sounds"]
 stream = ExtResource( 9 )
 volume_db = -1.0
+bus = "sfx"
+
+[node name="sndFootsteps" type="AudioStreamPlayer" parent="sounds"]
+stream = ExtResource( 9 )
+volume_db = 12.0
 bus = "sfx"
 [connection signal="tween_completed" from="twn_dive" to="." method="_on_twn_dive_tween_completed"]
 [connection signal="tween_started" from="twn_dive" to="." method="_on_twn_dive_tween_started"]

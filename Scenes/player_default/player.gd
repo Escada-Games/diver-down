@@ -162,3 +162,7 @@ func _on_twn_dive_tween_completed(object, key):
 	else:
 		pass
 
+func footstepSfx():
+	var footsteps=["res://Resources/SFX/footsteps/footstep_grass_000.ogg","res://Resources/SFX/footsteps/footstep_grass_001.ogg","res://Resources/SFX/footsteps/footstep_grass_002.ogg","res://Resources/SFX/footsteps/footstep_grass_003.ogg","res://Resources/SFX/footsteps/footstep_grass_004.ogg"]
+	$sounds.get_node("sndFootsteps").stream=load(footsteps[randi()%footsteps.size()])
+	$sounds.get_node("sndFootsteps").play()

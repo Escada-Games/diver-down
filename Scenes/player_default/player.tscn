@@ -215,7 +215,7 @@ centered = false
 use_parent_material = true
 texture = ExtResource( 3 )
 hframes = 9
-frame = 4
+frame = 2
 
 [node name="timers" type="Node2D" parent="."]
 
@@ -264,6 +264,7 @@ bus = "sfx"
 
 [node name="snd_land" type="AudioStreamPlayer" parent="sounds"]
 stream = ExtResource( 6 )
+volume_db = 8.0
 bus = "sfx"
 
 [node name="snd_dive" type="AudioStreamPlayer" parent="sounds"]
@@ -283,7 +284,7 @@ bus = "sfx"
 
 [node name="sndFootsteps" type="AudioStreamPlayer" parent="sounds"]
 stream = ExtResource( 9 )
-volume_db = 12.0
+volume_db = 9.0
 bus = "sfx"
 [connection signal="tween_completed" from="twn_dive" to="." method="_on_twn_dive_tween_completed"]
 [connection signal="tween_started" from="twn_dive" to="." method="_on_twn_dive_tween_started"]

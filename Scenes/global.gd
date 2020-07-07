@@ -1,3 +1,14 @@
+# DIVER DOWN
+# MADE FOR THE GODOT WILD JAM #2
+# Current Version: 1.1 (I think)
+# -Added a spherize shader effect while diving
+# -Changed transition between screens
+# -Added landing and footstep sounds to the player scene
+# -Fixed some diving bugs
+# 
+# Version 1.0:
+# Jam version (I think)
+
 extends Node
 const defaultResolution=Vector2(384,216)
 var player

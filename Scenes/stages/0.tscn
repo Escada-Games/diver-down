@@ -59,6 +59,10 @@ func _ready():
 	$twn_goup.start()"
 
 [node name="stage" type="Node2D"]
+__meta__ = {
+"_edit_horizontal_guides_": [ 109.971 ],
+"_edit_vertical_guides_": [ 370.104 ]
+}
 
 [node name="bg" parent="." instance=ExtResource( 1 )]
 
@@ -131,6 +135,27 @@ extra_delay = 0.5
 [node name="twn_fade" type="Tween" parent="stage/diver_down/down"]
 
 [node name="twn_goup" type="Tween" parent="stage/diver_down/down"]
+
+[node name="version" type="Label" parent="stage/diver_down"]
+margin_left = 76.5399
+margin_top = 60.707
+margin_right = 286.54
+margin_bottom = 99.707
+rect_scale = Vector2( 0.25, 0.25 )
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 3
+text = "V1.1"
+script = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+extra_delay = 0.75
+
+[node name="twn_fade" type="Tween" parent="stage/diver_down/version"]
+
+[node name="twn_goup" type="Tween" parent="stage/diver_down/version"]
 
 [node name="str_stagename" parent="stage" instance=ExtResource( 9 )]
 extra_delay = 1.0

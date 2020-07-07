@@ -15,7 +15,8 @@ func _ready():
 
 func _on_twn_offset_tween_completed(object, key):
 	self.target_offset=0 if spotlight_on_rails.unit_offset>0.9 else 1
-	_ready()"
+	_ready()
+"
 
 [sub_resource type="GDScript" id=2]
 script/source = "extends Node2D
@@ -30,7 +31,8 @@ func _process(delta):
 		if body.is_in_group('Player'):
 			global.reload_stage()
 #			get_tree().reload_current_scene() #@Make a better gameover
-#			self.modulate.r=30"
+#			self.modulate.r=30
+"
 
 [node name="spotlight_on_rails" type="Path2D"]
 curve = null

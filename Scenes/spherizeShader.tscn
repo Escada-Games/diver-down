@@ -1,24 +1,38 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://resources/textures/lightCircle.png" type="Texture" id=1]
+[ext_resource path="res://Resources/Textures/light.png" type="Texture" id=1]
 [ext_resource path="res://Resources/spherizeShader.tres" type="Material" id=2]
 
 [sub_resource type="GDScript" id=1]
-script/source = "extends Sprite
+script/source = "extends BackBufferCopy
 var duration=3
 var strength=0.00033
 func _ready():
-	$twnStrength.interpolate_property(self.material,\"shader_param/strength\",strength,0,duration,Tween.TRANS_QUINT,Tween.EASE_OUT)
-	$twnStrength.interpolate_property(self,\"modulate:a\",0.8,0,duration,Tween.TRANS_QUINT,Tween.EASE_OUT)
+	$twnStrength.interpolate_property($sprite.material,\"shader_param/strength\",strength,0,duration,Tween.TRANS_QUINT,Tween.EASE_OUT)
+	$twnStrength.interpolate_property($sprite,\"modulate:a\",0.8,0,duration,Tween.TRANS_QUINT,Tween.EASE_OUT)
 	$twnStrength.start()
-func _on_twnStrength_tween_all_completed():self.queue_free()
+func _on_twnStrength_tween_all_completed():
+	self.queue_free()
+#
+#extends Sprite
+#var duration=3
+#var strength=0.00033
+#func _ready():
+#	$twnStrength.interpolate_property(self.material,\"shader_param/strength\",strength,0,duration,Tween.TRANS_QUINT,Tween.EASE_OUT)
+#	$twnStrength.interpolate_property(self,\"modulate:a\",0.8,0,duration,Tween.TRANS_QUINT,Tween.EASE_OUT)
+#	$twnStrength.start()
+#func _on_twnStrength_tween_all_completed():
+#	self.queue_free()
+#
 "
 
-[node name="spriteShader" type="Sprite"]
+[node name="spriteShader" type="BackBufferCopy"]
+copy_mode = 2
+script = SubResource( 1 )
+
+[node name="sprite" type="Sprite" parent="."]
 material = ExtResource( 2 )
 texture = ExtResource( 1 )
-normal_map = ExtResource( 1 )
-script = SubResource( 1 )
 
 [node name="twnStrength" type="Tween" parent="."]
 [connection signal="tween_all_completed" from="twnStrength" to="." method="_on_twnStrength_tween_all_completed"]

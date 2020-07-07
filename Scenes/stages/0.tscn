@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Scenes/bg_layer.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/twn_stagefadein.tscn" type="PackedScene" id=2]
@@ -11,7 +11,9 @@
 [ext_resource path="res://Scenes/str_stagename.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/grass.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scenes/vine.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/spherizeShader.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Resources/SFX/Laser_shoot 6.wav" type="AudioStream" id=13]
+[ext_resource path="res://Resources/spherizeShader.tres" type="Material" id=14]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends TileMap
@@ -93,6 +95,7 @@ next_level = ExtResource( 6 )
 position = Vector2( 72, 72 )
 
 [node name="diver_down" type="Node2D" parent="stage"]
+material = ExtResource( 14 )
 position = Vector2( 280, 56 )
 
 [node name="diver" type="Label" parent="stage/diver_down"]
@@ -158,3 +161,6 @@ position = Vector2( 120, 40 )
 [node name="snd_debug" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 13 )
 bus = "sfx"
+
+[node name="spriteShader" parent="." instance=ExtResource( 12 )]
+position = Vector2( 164.211, 93.6844 )

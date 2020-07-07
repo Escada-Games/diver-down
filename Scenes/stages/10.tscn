@@ -86,6 +86,9 @@ func _process(delta):
 [node name="stage" type="Control" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="tilemap" type="TileMap" parent="stage"]
 position = Vector2( 0, 1 )

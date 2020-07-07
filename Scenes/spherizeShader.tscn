@@ -6,7 +6,7 @@
 [sub_resource type="GDScript" id=1]
 script/source = "extends BackBufferCopy
 var duration=3
-var strength=0.00033
+var strength=0.00043
 func _ready():
 	$twnStrength.interpolate_property($sprite.material,\"shader_param/strength\",strength,0,duration,Tween.TRANS_QUINT,Tween.EASE_OUT)
 	$twnStrength.interpolate_property($sprite,\"modulate:a\",0.8,0,duration,Tween.TRANS_QUINT,Tween.EASE_OUT)

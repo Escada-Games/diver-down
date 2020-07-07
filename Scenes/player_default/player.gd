@@ -42,10 +42,13 @@ func _ready():
 
 func _physics_process(delta):
 	$sprite.flip_h=false if(last_horizontal_direction==1) else true
-	if self.is_on_floor():
-		anim="idle" if abs(vectorVelocity.x)<=10 else "walk"
+	if state==State_dive:
+		anim="idle"
 	else:
-		anim="going_up" if vectorVelocity.y<0 else "goind_down"
+		if self.is_on_floor():
+			anim="idle" if abs(vectorVelocity.x)<=10 else "walk"
+		else:
+			anim="going_up" if vectorVelocity.y<0 else "goind_down"
 	if($animation_player.current_animation!=anim): $animation_player.play(anim)
 
 	if flag_constant_spritetrail: _create_spritetrail()

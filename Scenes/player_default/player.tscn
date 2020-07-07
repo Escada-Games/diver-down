@@ -161,10 +161,11 @@ func _process(delta):
 		else:
 			$dive_aim/polygon_2d.color=red if $dive_aim.get_overlapping_bodies().size()>0 else green
 	else:
-		$dive_aim/polygon_2d.color=red"
+		$dive_aim/polygon_2d.color=red
+"
 
 [sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 1, 1 )
+extents = Vector2( 0.1, 0.1 )
 
 [node name="player" type="KinematicBody2D"]
 z_as_relative = false
@@ -247,11 +248,10 @@ vertex_colors = PoolColorArray( 0.3, 0.3, 0.3, 0.9, 0.3, 0.3, 0.3, 0.5, 0.3, 0.3
 
 [node name="collision_polygon_2d" type="CollisionPolygon2D" parent="dive_aim/dive_aim"]
 polygon = PoolVector2Array( 0, 0, -1, -1, -1, 1 )
+disabled = true
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="dive_aim/dive_aim"]
-position = Vector2( -1, 0 )
 shape = SubResource( 8 )
-disabled = true
 
 [node name="position_2d" type="Position2D" parent="dive_aim/dive_aim"]
 

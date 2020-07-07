@@ -35,7 +35,8 @@ func _ready():
 	$twn_fade.interpolate_property(self, 'modulate:a', 0, 1, 1.5, Tween.TRANS_QUART, Tween.EASE_IN, 0.5+extra_delay)
 	$twn_fade.start()
 	$twn_goup.interpolate_property(self, 'rect_global_position:y', self.rect_global_position.y, self.rect_global_position.y-16, 2.0, Tween.TRANS_QUART, Tween.EASE_IN_OUT, 0.5+extra_delay)
-	$twn_goup.start()"
+	$twn_goup.start()
+"
 
 [node name="21" type="Node2D"]
 script = SubResource( 1 )
@@ -43,8 +44,11 @@ script = SubResource( 1 )
 [node name="stage" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 320.0
-margin_bottom = 152.0
+margin_right = 384.0
+margin_bottom = 216.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="str_tutorial" parent="stage" instance=ExtResource( 1 )]
 anchor_right = 1.0
@@ -85,6 +89,9 @@ custom_colors/font_color_shadow = Color( 0.33, 0.33, 0.33, 1 )
 text = "<<Time here>>"
 align = 1
 script = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 extra_delay = 1.5
 
 [node name="twn_fade" type="Tween" parent="stage/str_tutorial4"]

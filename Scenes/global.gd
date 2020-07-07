@@ -17,7 +17,24 @@ var stage_list=[
 	"res://Scenes/stages/1.tscn",
 	"res://Scenes/stages/2.tscn",
 	"res://Scenes/stages/3.tscn",
-	"res://Scenes/stages/4.tscn"
+	"res://Scenes/stages/4.tscn",
+	"res://Scenes/stages/5.tscn",
+	"res://Scenes/stages/6.tscn",
+	"res://Scenes/stages/7.tscn",
+	"res://Scenes/stages/8.tscn",
+	"res://Scenes/stages/9.tscn",
+	"res://Scenes/stages/10.tscn",
+	"res://Scenes/stages/11.tscn",
+	"res://Scenes/stages/12.tscn",
+	"res://Scenes/stages/13.tscn",
+	"res://Scenes/stages/14.tscn",
+	"res://Scenes/stages/15.tscn",
+	"res://Scenes/stages/16.tscn",
+	"res://Scenes/stages/17.tscn",
+	"res://Scenes/stages/18.tscn",
+	"res://Scenes/stages/19.tscn",
+	"res://Scenes/stages/20.tscn",
+	"res://Scenes/stages/21.tscn"
 ]
 var stage_index=0
 var twn
@@ -71,15 +88,20 @@ func _ready():
 	l.wait_time=60
 	l.autostart=false
 	l.one_shot=false
-	l.connect("timeout", global, 'add_to_minutes')
+	l.connect("timeout",global,'add_to_minutes')
 	add_child(l)
 	#print_debug('Global: Done! Timer added.')
 	
 	#print_debug('Global: Ready! Hope you have fun!')
 
-func add_to_minutes(): minutes+=1
+func add_to_minutes():
+	print_debug("Min add")
+	minutes+=1
 func startTimer(): $timer.start()
 func _process(delta):
+	if Input.is_action_just_pressed("ui_debug") and not OS.has_feature("standalone"):
+		next_stage()
+#		change_stage("res://Scenes/stages/20.tscn")
 	if Input.is_action_just_pressed('ui_mute'):
 		AudioServer.set_bus_mute(AudioServer.get_bus_index('Master'), !AudioServer.is_bus_mute(AudioServer.get_bus_index('Master')))
 	OS.set_window_title('DIVER DOWN - FPS: ' + str(Engine.get_frames_per_second()))
@@ -98,6 +120,7 @@ func change_stage(stage):
 #	var i=stage.instance()
 #	i.add_child(stage_fadein.instance())
 	if stage.instance().get_node('stage/str_stagename').text=='Stage 2: Going up':
+		print_debug("Started timer")
 		startTimer()
 	if stage.instance().get_node('stage/str_stagename').text=='Stage 4: Walls are only a suggestion':
 		$music.fade()
@@ -110,8 +133,8 @@ func change_stage(stage):
 		var k=music1.instance()
 		k.name='music1'
 		add_child(k)
-		$timer.stop()
 		seconds=round($timer.time_left)
+		$timer.stop()
 	get_tree().change_scene_to(stage)
 	changeFromLowPassMusic()
 	

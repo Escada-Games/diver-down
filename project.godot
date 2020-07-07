@@ -130,6 +130,5 @@ name_casing=1
 
 [rendering]
 
-quality/driver/driver_name="GLES2"
 environment/default_clear_color=Color( 0.09375, 0.09375, 0.09375, 1 )
 environment/default_environment="res://default_env.tres"

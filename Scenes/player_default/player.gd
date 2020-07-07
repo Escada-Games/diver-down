@@ -89,6 +89,7 @@ func _state_normal(delta,vector_direction_input):
 			var vector_target_position=Vector2(floor(cursor_position.x/global.tile_size.x)*global.tile_size.x,floor(cursor_position.y/global.tile_size.y)*global.tile_size.y)+global.tile_size/2
 			$twn_dive.interpolate_property(self, 'global_position', self.global_position,vector_target_position, twn_duration, Tween.TRANS_QUART, Tween.EASE_OUT)
 			$twn_dive.start()
+			$animation_player.play("idle")
 			create_splash(20,30,-(self.global_position-vector_target_position),(self.global_position-vector_target_position)/2)
 			createSpherize()
 	else:

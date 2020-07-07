@@ -124,7 +124,8 @@ func create_splash(minimum=5,maximum=10,direction=Vector2(0,-1),offset=Vector2()
 func createSpherize():
 	var i=spherizeShader.instance()
 	i.global_position=self.global_position
-	get_tree().root.add_child(i)
+#	get_tree().root.add_child(i)
+	get_parent().add_child(i)
 func _create_spritetrail():
 	if flag_can_create_spritetrail == true:
 		flag_can_create_spritetrail = false; $timers/tmr_spritetrail.start()

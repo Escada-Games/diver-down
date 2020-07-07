@@ -56,11 +56,12 @@ func _physics_process(delta):
 	
 	var vector_direction_input=Vector2(1 if Input.is_action_pressed('ui_right') else -1 if Input.is_action_pressed('ui_left') else 0, 1 if Input.is_action_pressed('ui_down') else -1 if Input.is_action_pressed('ui_up') else 0)
 	last_horizontal_direction=vector_direction_input.x if vector_direction_input.x != 0 else last_horizontal_direction
-	if vector_direction_input!=Vector2(): $dive_aim.rotation=vector_direction_input.angle()
+#	if vector_direction_input!=Vector2(): $dive_aim.rotation=vector_direction_input.angle()
 	
 	if self.active:
 		if state==State_normal: _state_normal(delta,vector_direction_input)
 		elif state==State_dive: _state_dive(delta,vector_direction_input)
+	if vector_direction_input!=Vector2(): $dive_aim.rotation=vector_direction_input.angle()
 
 func _state_normal(delta,vector_direction_input):
 	set_collision_layer_bit(0, true)
@@ -88,7 +89,7 @@ func _state_normal(delta,vector_direction_input):
 			if randf()<=0.5: $sounds/snd_dive.play()
 			else: $sounds/snd_dive1.play()
 			self.state=State_dive
-			var cursor_position=dive_aim.get_node('position_2d').global_position-Vector2(0,1)
+			var cursor_position=dive_aim.get_node('position_2d').global_position#-Vector2(0,1)
 			var vector_target_position=Vector2(floor(cursor_position.x/global.tile_size.x)*global.tile_size.x,floor(cursor_position.y/global.tile_size.y)*global.tile_size.y)+global.tile_size/2
 			$twn_dive.interpolate_property(self, 'global_position', self.global_position,vector_target_position, twn_duration, Tween.TRANS_QUART, Tween.EASE_OUT)
 			$twn_dive.start()

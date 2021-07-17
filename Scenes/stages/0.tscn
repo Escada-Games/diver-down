@@ -137,16 +137,16 @@ extra_delay = 0.5
 [node name="twn_goup" type="Tween" parent="stage/diver_down/down"]
 
 [node name="version" type="Label" parent="stage/diver_down"]
-margin_left = 76.5399
+margin_left = 66.0518
 margin_top = 60.707
-margin_right = 286.54
+margin_right = 276.052
 margin_bottom = 99.707
 rect_scale = Vector2( 0.25, 0.25 )
 custom_fonts/font = SubResource( 2 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 3
 custom_constants/shadow_offset_y = 3
-text = "V1.1"
+text = "V1.1.1"
 script = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false

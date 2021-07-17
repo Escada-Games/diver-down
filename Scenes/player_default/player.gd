@@ -70,10 +70,13 @@ func _state_normal(delta,vector_direction_input):
 	
 	if Input.is_action_just_pressed('ui_jump'):jumpBuffer=maxJumpBuffer
 	if Input.is_action_just_pressed('ui_dive'):diveBuffer=maxDiveBuffer
+	if self.is_on_floor():airTime=maxAirTime
+	else:airTime-=0.5
 	jumpBuffer-=0.5
 	diveBuffer-=0.5
 	
-	if jumpBuffer>0 and self.is_on_floor():
+	if jumpBuffer>0 and airTime>0:
+		airTime=0
 		jumpBuffer=0
 		_twn_squishy()
 		$sounds/snd_jump.play()

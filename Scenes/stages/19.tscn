@@ -109,15 +109,15 @@ text = "Stage 20: Gauntlet"
 [node name="spotlight_with_button" parent="stage" instance=ExtResource( 9 )]
 position = Vector2( 104, 136 )
 
-[node name="line_2d" parent="stage/spotlight_with_button" index="0"]
+[node name="line_2d" parent="stage/spotlight_with_button" index="1"]
 points = PoolVector2Array( 0, 32, 0, 0, 192, 0, 192, -96, 224, -96, 224, -72 )
 
-[node name="spotlight" parent="stage/spotlight_with_button" index="2"]
+[node name="spotlight" parent="stage/spotlight_with_button" index="3"]
 position = Vector2( 0, 32 )
 rotation = -1.5708
 polygon = PoolVector2Array( -112, 336, 64, 336, 0.0959015, 0.603569 )
 
-[node name="button" parent="stage/spotlight_with_button" index="3"]
+[node name="button" parent="stage/spotlight_with_button" index="4"]
 position = Vector2( 224, -80 )
 
 [node name="vine" parent="stage/spotlight_with_button" instance=ExtResource( 10 )]

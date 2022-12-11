@@ -54,12 +54,13 @@ func _ready():
 	$area_2d/collision_polygon_2d.polygon=self.polygon
 	set_process(true)
 
-func _process(delta):
+func _process(_delta):
 	self.modulate.r=1
 	for body in $area_2d.get_overlapping_bodies():
 		if body.is_in_group('Player'):
-			get_tree().reload_current_scene() #@Make a better gameover
-			self.modulate.r=30"
+			var _v = get_tree().reload_current_scene() #@Make a better gameover
+			self.modulate.r=30
+"
 
 [node name="stage" type="Node2D"]
 

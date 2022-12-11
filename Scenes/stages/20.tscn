@@ -174,4 +174,5 @@ position = Vector2( 72, 72 )
 
 [node name="grass5" parent="stage" instance=ExtResource( 11 )]
 position = Vector2( 280, 168 )
+
 [connection signal="body_entered" from="stage/next_level" to="stage/next_level" method="_on_next_level_body_entered"]

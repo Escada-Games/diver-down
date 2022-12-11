@@ -105,11 +105,14 @@ func _ready():
 	
 	#print_debug('Global: Ready! Hope you have fun!')
 
-func add_to_minutes():
+func add_to_minutes() -> void:
 	print_debug("Min add")
 	minutes+=1
-func startTimer(): $timer.start()
-func _process(delta):
+	
+func startTimer() -> void:
+	$timer.start()
+
+func _process(_delta):
 	if Input.is_action_just_pressed("ui_debug") and not OS.has_feature("standalone"):
 		next_stage()
 #		change_stage("res://Scenes/stages/20.tscn")
@@ -119,17 +122,13 @@ func _process(delta):
 
 func next_stage(): #@ Add a delay here maybe
 	get_tree().current_scene.queue_free()
-	stage_index+=1
+	stage_index += 1
 	state='Stage_begin'
-	get_tree().change_scene(stage_list[stage_index])
+	var _v = get_tree().change_scene(stage_list[stage_index])
 
 func change_stage(stage):
-	var target=get_tree().current_scene
-#	twn.interpolate_property(target, 'modulate:a', target.modulate.a, 0, 0.4, Tween.TRANS_QUART, Tween.EASE_IN)
-#	twn.start()
-#	yield(twn, "tween_completed")
-#	var i=stage.instance()
-#	i.add_child(stage_fadein.instance())
+	var _target = get_tree().current_scene
+
 	if stage.instance().get_node('stage/str_stagename').text=='Stage 2: Going up':
 		print_debug("Started timer")
 		startTimer()
@@ -146,22 +145,19 @@ func change_stage(stage):
 		add_child(k)
 		seconds=round($timer.time_left)
 		$timer.stop()
-	get_tree().change_scene_to(stage)
+	var _v = get_tree().change_scene_to(stage)
 	changeFromLowPassMusic()
 	
 func reload_stage():
 	if get_tree().current_scene.modulate.a==1:
 		changeFromLowPassMusic()
-		#print_debug('Global: Reseting current stage.')
-		get_tree().paused=true
-		$tint.color=red_tint
+		get_tree().paused = true
+		$tint.color = red_tint
 		yield(get_tree().create_timer(0.75), 'timeout')
 		get_tree().reload_current_scene()
-		$tint.color=blue_tint
-		get_tree().paused=false
-	
-#	get_tree().reload_current_scene()
-#	add_child(stage_reseter.instance())
+		$tint.color = blue_tint
+		get_tree().paused = false
+
 func changeToLowPassMusic():
 	#print_debug('Global: Changing to filtered music.')
 	AudioServer.set_bus_mute(AudioServer.get_bus_index('bgm'), true)

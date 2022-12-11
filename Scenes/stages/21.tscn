@@ -28,8 +28,10 @@ font_data = ExtResource( 2 )
 
 [sub_resource type="GDScript" id=3]
 script/source = "extends Label
-export (float) var extra_delay=0
-func _ready():
+
+export (float) var extra_delay = 0.0
+
+func _ready() -> void:
 	self.text= str(global.minutes) + ' minutes and ' + str(global.seconds) + ' seconds.'
 	self.modulate.a=0
 	$twn_fade.interpolate_property(self, 'modulate:a', 0, 1, 1.5, Tween.TRANS_QUART, Tween.EASE_IN, 0.5+extra_delay)
@@ -84,8 +86,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 106.0
 margin_bottom = 106.0
-custom_fonts/font = SubResource( 2 )
 custom_colors/font_color_shadow = Color( 0.33, 0.33, 0.33, 1 )
+custom_fonts/font = SubResource( 2 )
 text = "<<Time here>>"
 align = 1
 script = SubResource( 3 )
@@ -103,8 +105,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 202.0
 margin_bottom = 202.0
-custom_fonts/font = SubResource( 2 )
 custom_colors/font_color_shadow = Color( 0.33, 0.33, 0.33, 1 )
+custom_fonts/font = SubResource( 2 )
 text = "Uh... yeah. There's nothing more to see here."
 align = 1
 script = SubResource( 3 )

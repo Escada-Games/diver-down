@@ -50,18 +50,21 @@ _data = {
 
 [sub_resource type="GDScript" id=4]
 script/source = "extends Path2D
-export (bool) var loop=false
-export (float) var duration=1.0
-var target_offset=1
-onready var spotlight_on_rails=$path_follow_2d
+
+export (bool) var loop = false
+export (float) var duration = 1.0
+var target_offset = 1
+onready var spotlight_on_rails = $path_follow_2d
+
 func _ready():
 	spotlight_on_rails.loop=self.loop
 	$twn_offset.interpolate_property(spotlight_on_rails, 'unit_offset', spotlight_on_rails.unit_offset, self.target_offset, self.duration, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
 	$twn_offset.start()
 
-func _on_twn_offset_tween_completed(object, key):
-	self.target_offset=0 if spotlight_on_rails.unit_offset>0.9 else 1
-	_ready()"
+func _on_twn_offset_tween_completed(_object, _key) -> void:
+	self.target_offset = 0 if spotlight_on_rails.unit_offset > 0.9 else 1
+	_ready()
+"
 
 [sub_resource type="GDScript" id=5]
 script/source = "extends Node2D
@@ -70,12 +73,13 @@ func _ready():
 	$area_2d/collision_polygon_2d.polygon=self.polygon
 	set_process(true)
 
-func _process(delta):
-	self.modulate.r=1
+func _process(_delta) -> void:
+	self.modulate.r = 1
 	for body in $area_2d.get_overlapping_bodies():
 		if body.is_in_group('Player'):
-			get_tree().reload_current_scene() #@Make a better gameover
-			self.modulate.r=30"
+			var _v = get_tree().reload_current_scene() #@Make a better gameover
+			self.modulate.r = 30
+"
 
 [node name="stage" type="Node2D"]
 
@@ -165,8 +169,8 @@ position = Vector2( 360, 104 )
 
 [node name="grass6" parent="stage" instance=ExtResource( 10 )]
 position = Vector2( 312, 72 )
+
 [connection signal="tween_completed" from="stage/spotlight_on_rails3/twn_offset" to="stage/spotlight_on_rails3" method="_on_twn_offset_tween_completed"]
 
 [editable path="stage/spotlight_on_rails"]
-
 [editable path="stage/spotlight_on_rails2"]

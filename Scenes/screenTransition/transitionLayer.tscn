@@ -7,7 +7,7 @@
 light_mode = 2
 
 [node name="transitionLayer" type="CanvasLayer"]
-layer = 0
+layer = 128
 script = ExtResource( 2 )
 
 [node name="twnGrow" type="Tween" parent="."]

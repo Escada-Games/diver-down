@@ -4,7 +4,13 @@
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Sprite
-func _ready(): self.frame=randi()%self.hframes"
+
+func _ready():
+	self.scale *= rand_range(0.8, 1.2)
+	self.modulate.b = rand_range(0.8, 1.0)
+	self.modulate.a = rand_range(0.4, 0.8)
+	self.frame=randi()%self.hframes
+"
 
 [node name="bg" type="Sprite"]
 texture = ExtResource( 1 )

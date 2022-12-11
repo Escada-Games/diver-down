@@ -8,18 +8,35 @@ script/source = "extends Area2D
 var transitionLayer=preload(\"res://Scenes/screenTransition/transitionLayer.tscn\")
 onready var current_level=get_tree().current_scene.get_node('stage')
 export (PackedScene) var next_level=load(\"res://Scenes/debug.tscn\")
-func _ready(): pass
+
+func _ready() -> void:
+	set_process(true)
+	
+func _process(delta: float) -> void:
+	if OS.is_debug_build() and Input.is_action_just_pressed(\"ui_debug\"):
+		goToNextLevel()
+		
 func _on_next_level_body_entered(body):
 	if(body.is_in_group('Player')):
+		goToNextLevel()
+		return
 		#global.change_stage(next_level)
-		var i=transitionLayer.instance()
-		i.nextLevel=self.next_level
-		get_tree().root.add_child(i)
-		
-		$snd_done.play()
+#		var i = transitionLayer.instance()
+#		i.nextLevel=self.next_level
+#		get_tree().root.add_child(i)
+#
+#		$snd_done.play()
 #		body.anim='idle'
 #		body.get_node('animation_player').play('idle')
 #		body.get_node('twn_fadeout').interpolate_property(body, 'modulate:a', body.modulate.a, 0, 0.4, Tween.TRANS_QUART, Tween.EASE_IN)
+
+func goToNextLevel() -> void:
+	var i = transitionLayer.instance()
+	i.nextLevel = self.next_level
+	get_tree().root.add_child(i)
+	
+	$snd_done.play()
+	pass
 "
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -29,7 +46,7 @@ extents = Vector2( 9, 10 )
 script = SubResource( 1 )
 
 [node name="icon" type="Sprite" parent="."]
-position = Vector2( 0, -2 )
+position = Vector2( 0, -3 )
 texture = ExtResource( 1 )
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="."]
@@ -38,4 +55,5 @@ shape = SubResource( 2 )
 [node name="snd_done" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
 bus = "sfx"
+
 [connection signal="body_entered" from="." to="." method="_on_next_level_body_entered"]

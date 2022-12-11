@@ -100,7 +100,6 @@ next_level = ExtResource( 5 )
 
 [node name="player" parent="stage" instance=ExtResource( 6 )]
 position = Vector2( 344, 184 )
-last_horizontal_direction = -1
 
 [node name="str_stagename" parent="stage" instance=ExtResource( 7 )]
 text = "Stage 19: Mixed"

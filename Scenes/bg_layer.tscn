@@ -1,19 +1,32 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Resources/MoreTextures/sprParticle1.png" type="Texture" id=1]
+[ext_resource path="res://Resources/MoreTextures/sprParticle2.png" type="Texture" id=2]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends ParallaxBackground
 
-const bg=preload(\"res://Scenes/bg.tscn\")
-func _ready():
-	for a in rand_range(5, 25):
+const bg := preload(\"res://Scenes/bg.tscn\")
+
+func _ready() -> void:
+	#for a in rand_range(5, 25):
+	for _a in rand_range(25, 100):
 		var i=bg.instance()
+		$parallax_layer.add_child(i)
 		i.global_position.x=rand_range(16,384-16)
 		i.global_position.y=rand_range(16,216-16)
-		$parallax_layer.add_child(i)
 	set_process(true)
-func _process(delta):
-	self.offset.x=-0.02*(global.player.global_position.x-384/2)
+	
+func _process(_delta) -> void:
+	self.offset.x = -0.02*(global.player.global_position.x-384/2)
 "
+
+[sub_resource type="Curve" id=2]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.247253, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.75, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0.718475, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
 [node name="bg" type="ParallaxBackground"]
 layer = -1
@@ -24,3 +37,50 @@ script = SubResource( 1 )
 color = Color( 0.75, 0.75, 0.8, 1 )
 
 [node name="parallax_layer" type="ParallaxLayer" parent="."]
+
+[node name="fg" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="particles0" type="CPUParticles2D" parent="fg"]
+position = Vector2( 192, 93 )
+lifetime = 16.0
+preprocess = 10.0
+speed_scale = 0.66
+lifetime_randomness = 0.3
+texture = ExtResource( 1 )
+emission_shape = 2
+emission_rect_extents = Vector2( 192, 93 )
+gravity = Vector2( 0, 0 )
+initial_velocity = 16.0
+initial_velocity_random = 1.0
+angular_velocity = 32.0
+angular_velocity_random = 0.33
+tangential_accel = 16.0
+tangential_accel_random = 0.33
+angle = 360.0
+angle_random = 1.0
+scale_amount_random = 0.33
+scale_amount_curve = SubResource( 2 )
+color_ramp = SubResource( 3 )
+
+[node name="particles1" type="CPUParticles2D" parent="fg"]
+position = Vector2( 192, 93 )
+amount = 16
+lifetime = 16.0
+preprocess = 10.0
+speed_scale = 0.66
+lifetime_randomness = 0.3
+texture = ExtResource( 2 )
+emission_shape = 2
+emission_rect_extents = Vector2( 192, 93 )
+gravity = Vector2( 0, 0 )
+initial_velocity = 16.0
+initial_velocity_random = 1.0
+angular_velocity = 32.0
+angular_velocity_random = 0.33
+tangential_accel_random = 0.33
+angle = 360.0
+angle_random = 1.0
+scale_amount_random = 1.0
+scale_amount_curve = SubResource( 2 )
+color_ramp = SubResource( 3 )

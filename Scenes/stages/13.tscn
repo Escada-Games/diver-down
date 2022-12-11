@@ -52,70 +52,70 @@ margin_bottom = 40.0
 [node name="spotlight_with_button" parent="stage" instance=ExtResource( 3 )]
 position = Vector2( 264, 24 )
 
-[node name="line_2d" parent="stage/spotlight_with_button" index="0"]
+[node name="line_2d" parent="stage/spotlight_with_button" index="1"]
 points = PoolVector2Array( 0, 0, -64, 0, -64, 64, 0, 64, 0, 96, 0, 160, -192, 160, -192, 32, -128, 32, -128, 72 )
 default_color = Color( 0.8, 0.4, 0.8, 1 )
 
-[node name="spotlight" parent="stage/spotlight_with_button" index="2"]
+[node name="spotlight" parent="stage/spotlight_with_button" index="3"]
 polygon = PoolVector2Array( -16, 240, 16, 240, 0.0959015, 0.603569 )
 
-[node name="button" parent="stage/spotlight_with_button" index="3"]
+[node name="button" parent="stage/spotlight_with_button" index="4"]
 position = Vector2( -128, 64 )
 
 [node name="spotlight_with_button2" parent="stage" instance=ExtResource( 3 )]
 position = Vector2( 168, 24 )
 
-[node name="line_2d" parent="stage/spotlight_with_button2" index="0"]
+[node name="line_2d" parent="stage/spotlight_with_button2" index="1"]
 points = PoolVector2Array( 0, 0, 0, 64, 64, 64, 64, 168 )
 default_color = Color( 0.8, 0.4, 0.4, 1 )
 
-[node name="spotlight" parent="stage/spotlight_with_button2" index="2"]
+[node name="spotlight" parent="stage/spotlight_with_button2" index="3"]
 polygon = PoolVector2Array( -16, 240, 16, 240, 0.0959015, 0.603569 )
 
-[node name="button" parent="stage/spotlight_with_button2" index="3"]
+[node name="button" parent="stage/spotlight_with_button2" index="4"]
 position = Vector2( 64, 160 )
 
 [node name="spotlight_with_button3" parent="stage" instance=ExtResource( 3 )]
 position = Vector2( 40, 88 )
 
-[node name="line_2d" parent="stage/spotlight_with_button3" index="0"]
+[node name="line_2d" parent="stage/spotlight_with_button3" index="1"]
 points = PoolVector2Array( 0, 0, 0, 32, 128, 32, 128, 96, 0, 96, 0, 64, 32, 64, 32, 72 )
 default_color = Color( 0.4, 0.8, 0.4, 1 )
 
-[node name="spotlight" parent="stage/spotlight_with_button3" index="2"]
+[node name="spotlight" parent="stage/spotlight_with_button3" index="3"]
 rotation = -1.5708
 polygon = PoolVector2Array( -16, 400, 16, 400, 0.0959015, 0.603569 )
 
-[node name="button" parent="stage/spotlight_with_button3" index="3"]
+[node name="button" parent="stage/spotlight_with_button3" index="4"]
 position = Vector2( 32, 64 )
 
 [node name="spotlight_with_button4" parent="stage" instance=ExtResource( 3 )]
 position = Vector2( 72, 24 )
 activated = false
 
-[node name="line_2d" parent="stage/spotlight_with_button4" index="0"]
+[node name="line_2d" parent="stage/spotlight_with_button4" index="1"]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 32, 128, 128, 128, 128, 168 )
 default_color = Color( 0.4, 0.4, 0.8, 1 )
 
-[node name="spotlight" parent="stage/spotlight_with_button4" index="2"]
+[node name="spotlight" parent="stage/spotlight_with_button4" index="3"]
 polygon = PoolVector2Array( -16, 240, 16, 240, 0.0959015, 0.603569 )
 
-[node name="button" parent="stage/spotlight_with_button4" index="3"]
+[node name="button" parent="stage/spotlight_with_button4" index="4"]
 position = Vector2( 128, 160 )
 
 [node name="spotlight_with_button5" parent="stage" instance=ExtResource( 3 )]
 position = Vector2( 360, 152 )
 activated = false
 
-[node name="line_2d" parent="stage/spotlight_with_button5" index="0"]
+[node name="line_2d" parent="stage/spotlight_with_button5" index="1"]
 points = PoolVector2Array( 0, 0, 0, -96, -288, -96, -288, -64, -64, -64, -64, 0, -224, 0, -224, 8 )
 default_color = Color( 0.8, 0.8, 0, 1 )
 
-[node name="spotlight" parent="stage/spotlight_with_button5" index="2"]
+[node name="spotlight" parent="stage/spotlight_with_button5" index="3"]
 rotation = 1.5708
 polygon = PoolVector2Array( -16, 400, 16, 400, 0.0959015, 0.603569 )
 
-[node name="button" parent="stage/spotlight_with_button5" index="3"]
+[node name="button" parent="stage/spotlight_with_button5" index="4"]
 position = Vector2( -224, 0 )
 
 [node name="tilemap" type="TileMap" parent="stage"]
@@ -159,11 +159,7 @@ position = Vector2( 72, 120 )
 position = Vector2( 296, 56 )
 
 [editable path="stage/spotlight_with_button"]
-
 [editable path="stage/spotlight_with_button2"]
-
 [editable path="stage/spotlight_with_button3"]
-
 [editable path="stage/spotlight_with_button4"]
-
 [editable path="stage/spotlight_with_button5"]

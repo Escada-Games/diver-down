@@ -49,14 +49,17 @@ extra_spacing_char = 2
 font_data = ExtResource( 8 )
 
 [sub_resource type="GDScript" id=3]
-script/source = "extends Label
-export (float) var extra_delay=0
+script/source = "extends Label 
+
+export (float) var extra_delay = 0.0
+ 
 func _ready():
 	self.modulate.a=0
-	$twn_fade.interpolate_property(self, 'modulate:a', 0, 1, 1.5, Tween.TRANS_QUART, Tween.EASE_IN, 0.5+extra_delay)
+	$twn_fade.interpolate_property(self, 'modulate:a', 0, 1, 1.5, Tween.TRANS_QUART, Tween.EASE_IN, 0.5 + extra_delay)
 	$twn_fade.start()
 	$twn_goup.interpolate_property(self, 'rect_global_position:y', self.rect_global_position.y, self.rect_global_position.y-16, 2.0, Tween.TRANS_QUART, Tween.EASE_IN_OUT, 0.5+extra_delay)
-	$twn_goup.start()"
+	$twn_goup.start()
+"
 
 [node name="stage" type="Node2D"]
 __meta__ = {
@@ -104,10 +107,10 @@ position = Vector2( 280, 56 )
 [node name="diver" type="Label" parent="stage/diver_down"]
 margin_right = 210.0
 margin_bottom = 20.0
-custom_fonts/font = SubResource( 2 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 3
 custom_constants/shadow_offset_y = 3
+custom_fonts/font = SubResource( 2 )
 text = "Diver"
 script = SubResource( 3 )
 extra_delay = 0.25
@@ -121,10 +124,10 @@ margin_left = 16.0
 margin_top = 32.0
 margin_right = 226.0
 margin_bottom = 71.0
-custom_fonts/font = SubResource( 2 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 3
 custom_constants/shadow_offset_y = 3
+custom_fonts/font = SubResource( 2 )
 text = "Down"
 script = SubResource( 3 )
 __meta__ = {
@@ -142,15 +145,12 @@ margin_top = 60.707
 margin_right = 276.052
 margin_bottom = 99.707
 rect_scale = Vector2( 0.25, 0.25 )
-custom_fonts/font = SubResource( 2 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 3
 custom_constants/shadow_offset_y = 3
-text = "V1.1.1"
+custom_fonts/font = SubResource( 2 )
+text = "V1.2"
 script = SubResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 extra_delay = 0.75
 
 [node name="twn_fade" type="Tween" parent="stage/diver_down/version"]

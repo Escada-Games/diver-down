@@ -53,10 +53,13 @@ margin_bottom = 40.0
 [node name="spotlight_with_button" parent="stage" instance=ExtResource( 3 )]
 position = Vector2( 312, 168 )
 
-[node name="line_2d" parent="stage/spotlight_with_button" index="0"]
+[node name="line_2dbg" parent="stage/spotlight_with_button" index="0"]
+points = PoolVector2Array( 0, 0, 48, 0, -272, -120 )
+
+[node name="line_2d" parent="stage/spotlight_with_button" index="1"]
 points = PoolVector2Array( 0, 0, 0, -128, -272, -128, -272, -120 )
 
-[node name="button" parent="stage/spotlight_with_button" index="3"]
+[node name="button" parent="stage/spotlight_with_button" index="4"]
 position = Vector2( -272, -128 )
 
 [node name="tilemap" type="TileMap" parent="stage"]
@@ -164,7 +167,5 @@ position = Vector2( 328, 120 )
 flip_h = true
 
 [editable path="stage/spotlight_with_button"]
-
 [editable path="stage/spotlight_spinner"]
-
 [editable path="stage/spotlight_spinner2"]

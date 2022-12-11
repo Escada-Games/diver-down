@@ -3,7 +3,6 @@
 [ext_resource path="res://Resources/Textures/white.png" type="Texture" id=1]
 
 [sub_resource type="GDScript" id=1]
-
 script/source = "extends RigidBody2D
 var colors=[Color('3a5339'),Color('394071')]
 var direction=Vector2(0,-1)
@@ -12,73 +11,39 @@ func _ready():
 	self.modulate=colors[0] if randf()<0.6 else colors[1]
 	$timer.wait_time=rand_range(1,5)
 	$timer.start()
-	var variation=Vector2(rand_range(-50,50) if direction.x==0 else 0, rand_range(-50,50) if direction.y==0 else 0)
+	var variation = Vector2(
+		rand_range(-50.0,50.0) if direction.x == 0 else 0.0,\\
+		rand_range(-50.0,50.0) if direction.y==0 else 0.0
+	)
 	self.linear_velocity=direction*rand_range(-200,200)+variation
 
 func _on_timer_timeout():
 	$twn_fade.interpolate_property(self, 'modulate:a', self.modulate.a, 0, 1, Tween.TRANS_QUART, Tween.EASE_IN, 0.2)
 	$twn_fade.start()
 
-func _on_twn_fade_tween_completed(object, key):
+func _on_twn_fade_tween_completed(_object, _key) -> void:
 	self.queue_free()
 "
 
 [sub_resource type="RectangleShape2D" id=2]
-
-custom_solver_bias = 0.0
 extents = Vector2( 1, 1 )
 
 [node name="drop" type="RigidBody2D"]
-
-input_pickable = false
 collision_layer = 0
 collision_mask = 4
-mode = 0
-mass = 1.0
-friction = 1.0
-bounce = 0.0
 gravity_scale = 4.0
-custom_integrator = false
-continuous_cd = 0
-contacts_reported = 0
-contact_monitor = false
-sleeping = false
-can_sleep = true
-linear_velocity = Vector2( 0, 0 )
-linear_damp = -1.0
-angular_velocity = 0.0
-angular_damp = -1.0
 script = SubResource( 1 )
-_sections_unfolded = [ "Collision", "Visibility" ]
 
-[node name="timer" type="Timer" parent="." index="0"]
+[node name="timer" type="Timer" parent="."]
 
-process_mode = 1
-wait_time = 1.0
-one_shot = false
-autostart = false
+[node name="twn_fade" type="Tween" parent="."]
 
-[node name="twn_fade" type="Tween" parent="." index="1"]
-
-repeat = false
-playback_process_mode = 1
-playback_speed = 1.0
-playback/active = false
-playback/repeat = false
-playback/speed = 1.0
-
-[node name="sprite" type="Sprite" parent="." index="2"]
-
+[node name="sprite" type="Sprite" parent="."]
 scale = Vector2( 2, 2 )
 texture = ExtResource( 1 )
-_sections_unfolded = [ "Transform" ]
 
-[node name="collision_shape_2d" type="CollisionShape2D" parent="." index="3"]
-
+[node name="collision_shape_2d" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )
 
 [connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]
-
 [connection signal="tween_completed" from="twn_fade" to="." method="_on_twn_fade_tween_completed"]
-
-

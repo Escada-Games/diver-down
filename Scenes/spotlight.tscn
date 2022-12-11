@@ -19,7 +19,7 @@ func _process(delta):
 [node name="spotlight" type="Polygon2D"]
 color = Color( 0.807843, 0.678431, 0.45098, 0.25 )
 antialiased = true
-polygon = PoolVector2Array( -16.2602, 72.8509, 14.1519, 73.1745, 0, 0 )
+polygon = PoolVector2Array( -16.2602, 72.8509, 14.1519, 73.1745, 2, 1, -2, 1 )
 vertex_colors = PoolColorArray( 0, 0, 0, 0.25, 0, 0, 0, 0.25 )
 script = SubResource( 1 )
 
